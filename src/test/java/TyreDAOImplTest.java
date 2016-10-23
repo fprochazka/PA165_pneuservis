@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package enums;
 
 /**
  *
  * @author Maros Staurovsky
  */
-public enum PersonType {
-    CLIENT, EMPLOYEE;
+public class TyreDAOImplTest {
     
 }
