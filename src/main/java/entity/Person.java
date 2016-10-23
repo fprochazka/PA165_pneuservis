@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author Maros Staurovsky
  */
+@Entity
 public class Person {
     
     @NotNull

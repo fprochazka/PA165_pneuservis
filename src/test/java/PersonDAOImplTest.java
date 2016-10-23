@@ -6,7 +6,7 @@
 import entity.Person;
 import enums.PersonType;
 import dao.PersonDAO;
-import java.util.HashSet;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -46,11 +46,13 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
         person1.setSurname("Green");
         person1.setPersonType(PersonType.CLIENT);
         person1.setLogin("person.one");
+        person1.setDateOfBirth(Calendar.getInstance());
 
         person2.setFirstname("Sally");
         person2.setSurname("Orange");
         person2.setPersonType(PersonType.CLIENT);
         person2.setLogin("person.two");
+        person2.setDateOfBirth(Calendar.getInstance());
     }
 
     @Test
@@ -58,7 +60,7 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
         personDao.create(person1);
         Person h1 = personDao.FindById(person1.getId());
         Assert.assertEquals(h1, person1);
-        assertHunterEquals(h1, person1);
+        assertPersonEquals(h1, person1);
     }
 
     @Test
@@ -83,7 +85,7 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
         Person updated = personDao.FindById(found.getId());
 
         Assert.assertEquals(found.getFirstname(), updated.getFirstname());
-        assertHunterEquals(found, updated);
+        assertPersonEquals(found, updated);
     }
 
     @Test
@@ -107,12 +109,13 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
         personDao.create(person1);
     }
 
-    private void assertHunterEquals(Person actual, Person expected){
+    private void assertPersonEquals(Person actual, Person expected){
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getFirstname(), expected.getFirstname());
         Assert.assertEquals(actual.getSurname(), expected.getSurname());
         Assert.assertEquals(actual.getPersonType(), expected.getPersonType());
         Assert.assertEquals(actual.getLogin(), expected.getLogin());
+        Assert.assertEquals(actual.getDateOfBirth(), expected.getDateOfBirth());
     }
 
 }
