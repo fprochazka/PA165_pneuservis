@@ -9,6 +9,6 @@ package enums;
  *
  * @author Maros Staurovsky
  */
-public class TyreType {
+public enum TyreType {
     
 }

@@ -5,10 +5,26 @@
  */
 package dao;
 
+import entity.Service;
+
+import java.util.List;
+
 /**
  *
- * @author Maros Staurovsky
+ * @author Ivan Moscovic
  */
 public interface ServiceDAO {
-    
+
+    public void create(Service service) throws IllegalArgumentException;
+
+    public void delete(Service service) throws IllegalArgumentException;
+
+    public void update(Service service) throws IllegalArgumentException;
+
+    public Service findById(long id);
+
+    public List<Service> findByName(String name);
+
+    public List<Service> getAllServices();
+
 }
