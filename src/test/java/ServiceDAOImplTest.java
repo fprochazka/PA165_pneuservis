@@ -4,10 +4,187 @@
  * and open the template in the editor.
  */
 
+import dao.ServiceDAO;
+import entity.Service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+
 /**
  *
- * @author Maros Staurovsky
+ * @author Ivan Moscovic
  */
-public class ServiceDAOImplTest {
-    
+
+@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
+public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
+
+    @PersistenceContext
+    public EntityManager entityManager;
+
+    @Autowired
+    private ServiceDAO serviceDao;
+
+    private Service service1;
+    private Service service2;
+
+    @BeforeMethod
+    private void init(){
+
+        service1 = new Service();
+        service2 = new Service();
+
+        service1.setDuration(5);
+        service1.setNameOfService("Change of gear");
+        service1.setOwnParts(false);
+
+        service2.setDuration(2);
+        service2.setNameOfService("Change of oil");
+        service2.setOwnParts(true);
+    }
+
+    @Test
+    public void createServiceTest(){
+        serviceDao.create(service1);
+
+        long service1Id = service1.getId();
+        assertThat("saved service has null id", service1.getId(), not(equalTo(null)));
+        Service result = serviceDao.findById(service1Id);
+        assertDeepEquals(result, service1);
+        assertThat(result, is(equalTo(service1)));
+        assertThat(result, is(not(sameInstance(service1))));
+
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createWithNullTest() {
+        serviceDao.create(null);
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
+    public void createServiceWithAssignedIdTest(){
+        service1.setId(1L);
+        serviceDao.create(service1);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createServiceWithWrongDurationTest(){
+        service1.setDuration(-5);
+        serviceDao.create(service1);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createServiceWithNullNameTest(){
+        service1.setNameOfService(null);
+        serviceDao.create(service1);
+    }
+
+    @Test
+    public void updateServiceTest(){
+        serviceDao.create(service1);
+        serviceDao.create(service2);
+
+        service1.setNameOfService("something new");
+        serviceDao.update(service1);
+        Assert.assertEquals(serviceDao.findById(service1.getId()).getNameOfService(), "something new");
+
+        service1.setDuration(8);
+        serviceDao.update(service1);
+        Assert.assertEquals(serviceDao.findById(service1.getId()).getDuration(), 8);
+
+        service1.setOwnParts(true);
+        serviceDao.update(service1);
+        Assert.assertEquals(serviceDao.findById(service1.getId()).hasOwnParts(), true);
+
+        assertDeepEquals(serviceDao.findById(service2.getId()) ,service2);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateServiceWithNullReference() {
+        serviceDao.create(service1);
+        serviceDao.update(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateServiceWithWrogDuration() {
+        serviceDao.create(service1);
+        service1 = serviceDao.findById(service1.getId());
+        service1.setDuration(-5);
+        serviceDao.update(service1);
+    }
+
+
+
+    @Test
+    public void findByIdTest(){
+        serviceDao.create(service1);
+        serviceDao.create(service2);
+        Service found = serviceDao.findById(service1.getId());
+        Assert.assertEquals(found, service1);
+        assertDeepEquals(found, service1);
+    }
+
+    @Test
+    public void findByNameTest(){
+        serviceDao.create(service1);
+        serviceDao.create(service2);
+        List<Service> found = serviceDao.findByName("Change of oil");
+        List<Service> found2 = serviceDao.findByName("do not exist");
+        Assert.assertEquals(found.size(), 1);
+        assertDeepEquals(found.get(0), service2);
+        Assert.assertEquals(found2.size(), 0);
+    }
+
+    @Test
+    public void findAllTest(){
+        serviceDao.create(service1);
+        serviceDao.create(service2);
+        List<Service> services = serviceDao.getAllServices();
+        Assert.assertEquals(services.size(), 2);
+        assertDeepEquals(services.get(0), service1);
+        assertDeepEquals(services.get(1), service2);
+    }
+
+    @Test
+    public void deleteTest(){
+        serviceDao.create(service1);
+        serviceDao.create(service2);
+        Assert.assertNotNull(serviceDao.findById(service1.getId()));
+        serviceDao.delete(service1);
+        Assert.assertNull(serviceDao.findById(service1.getId()));
+        Assert.assertNotNull(serviceDao.findById(service2.getId()));
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteNullService() {
+        serviceDao.delete(null);
+    }
+
+    private void assertDeepEquals(Service ser1, Service ser2){
+        Assert.assertEquals(ser1.getDuration(), ser2.getDuration());
+        Assert.assertEquals(ser1.getId(), ser2.getId());
+        Assert.assertEquals(ser1.getNameOfService(), ser2.getNameOfService());
+        Assert.assertEquals(ser1.hasOwnParts(), ser2.hasOwnParts());
+    }
+
+
 }
