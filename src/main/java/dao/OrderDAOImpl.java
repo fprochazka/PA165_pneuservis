@@ -5,10 +5,69 @@
  */
 package dao;
 
+import entity.Order;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * @author Maros Staurovsky
+ * @author Jaroslav Bonco
  */
-public class OrderDAOImpl {
-    
+
+@Repository
+public class OrderDAOImpl implements OrderDAO{
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Override
+    public void create(Order order) throws IllegalArgumentException {
+        if (order                  == null ||
+            order.getClientId()    == null ||
+            order.getPrice()       == null ||
+            order.getPrice().compareTo(BigDecimal.ZERO) < 0   /*  ||
+           order.getAllProducts() == null */
+         ){
+            throw new IllegalArgumentException("Order must have a clientID, some ordered products and the price cannot be negative");
+        }
+        em.persist(order);
+    }
+
+    @Override
+    public void delete(Order order) throws IllegalArgumentException{
+        if (order == null){
+            throw new IllegalArgumentException("Cannot delete null order");
+        }
+        em.remove(order);
+    }
+
+    @Override
+    public void update(Order order) throws IllegalArgumentException {
+         if (order                  == null ||
+             order.getClientId()    == null ||
+             order.getPrice().compareTo(BigDecimal.ZERO) < 0 /* ||
+             order.getAllProducts() == null */
+         ){
+            throw new IllegalArgumentException("Order must have a clientID, an overall price(cannot be negative number) and some ordered products");
+        }
+        em.merge(order);
+    }
+
+    @Override
+    public Order findById(long id) {
+        return em.find(Order.class, id);
+    }
+
+    @Override
+    public Order findByClientId(long clientId) {
+        return em.find(Order.class, clientId);
+    }
+
+    @Override
+    public List<Order> findAll () {
+        return em.createQuery("SELECT order FROM Order order", Order.class).getResultList();
+    }
 }

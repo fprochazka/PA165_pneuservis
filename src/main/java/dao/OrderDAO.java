@@ -5,10 +5,24 @@
  */
 package dao;
 
+import entity.Order;
+import java.util.List;
+
 /**
  *
- * @author Maros Staurovsky
+ * @author Jaroslav Bonco
  */
 public interface OrderDAO {
     
+    public void create (Order order) throws IllegalArgumentException;
+    
+    public void update (Order order);
+    
+    public void delete (Order order);
+    
+    public Order findById (long id);
+    
+    public Order findByClientId (long clientId);
+    
+    public List<Order> findAll ();
 }
