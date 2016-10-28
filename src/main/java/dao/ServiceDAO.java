@@ -25,6 +25,6 @@ public interface ServiceDAO {
 
     public List<Service> findByName(String name);
 
-    public List<Service> getAllServices();
+    public List<Service> findAllServices();
 
 }

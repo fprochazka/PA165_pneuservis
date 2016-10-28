@@ -23,10 +23,6 @@ import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 
 /**
  *
@@ -60,19 +56,6 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
         service2.setDuration(2);
         service2.setNameOfService("Change of oil");
         service2.setOwnParts(true);
-    }
-
-    @Test
-    public void createServiceTest(){
-        serviceDao.create(service1);
-
-        long service1Id = service1.getId();
-        assertThat("saved service has null id", service1.getId(), not(equalTo(null)));
-        Service result = serviceDao.findById(service1Id);
-        assertDeepEquals(result, service1);
-        assertThat(result, is(equalTo(service1)));
-        assertThat(result, is(not(sameInstance(service1))));
-
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -158,7 +141,7 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     public void findAllTest(){
         serviceDao.create(service1);
         serviceDao.create(service2);
-        List<Service> services = serviceDao.getAllServices();
+        List<Service> services = serviceDao.findAllServices();
         Assert.assertEquals(services.size(), 2);
         assertDeepEquals(services.get(0), service1);
         assertDeepEquals(services.get(1), service2);

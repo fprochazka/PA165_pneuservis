@@ -62,7 +62,7 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public List<Service> getAllServices() {
+    public List<Service> findAllServices() {
         return entityManager.createQuery("SELECT service FROM Service service", Service.class).getResultList();
     }
 }
