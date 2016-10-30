@@ -6,11 +6,12 @@
 package entity;
 
 import enums.PersonType;
-import enums.TireDiameter;
+import enums.TireManufacturer;
 import enums.TireType;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,6 @@ import javax.validation.constraints.NotNull;
  * @author Matej Sipka
  */
 @Entity
-@Table(name="TIRES")
 public class Tire {
 
     @Id
@@ -31,11 +31,12 @@ public class Tire {
     private Long id;
 
     @NotNull
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireType type;
 
     @NotNull
+    @Column(unique = true)
     private int catalogNumber;
 
     @NotNull
@@ -45,12 +46,12 @@ public class Tire {
     private int profile;
 
     @NotNull
-    @Enumerated
-    private TireDiameter diameter;
+    private int diameter;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String manufacturer;
+    private TireManufacturer manufacturer;
 
     public Long getId() {
         return id;
@@ -92,19 +93,19 @@ public class Tire {
         this.profile = profile;
     }
 
-    public TireDiameter getDiameter() {
+    public int getDiameter() {
         return diameter;
     }
 
-    public void setDiameter(TireDiameter diameter) {
+    public void setDiameter(int diameter) {
         this.diameter = diameter;
     }
 
-    public String getManufacturer() {
+    public TireManufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
+    public void setManufacturer(TireManufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
 
