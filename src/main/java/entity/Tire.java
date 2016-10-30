@@ -8,7 +8,9 @@ package entity;
 import enums.PersonType;
 import enums.TireManufacturer;
 import enums.TireType;
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +18,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -24,11 +28,7 @@ import javax.validation.constraints.NotNull;
  * @author Matej Sipka
  */
 @Entity
-public class Tire {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public class Tire extends Product {
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -52,14 +52,6 @@ public class Tire {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireManufacturer manufacturer;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public TireType getType() {
         return type;
@@ -120,13 +112,13 @@ public class Tire {
 
         Tire tire = (Tire) o;
 
-        return Objects.equals(id, tire.id);
+        return Objects.equals(super.getId(), tire.getId());
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return (int) (super.getId() ^ (super.getId() >>> 32));
     }
 
 }

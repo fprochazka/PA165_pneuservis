@@ -67,12 +67,9 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
         tireDao.create(null);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test
     public void createServiceWithAssignedIdTest() {
-        tire1.setId(1L);
         tireDao.create(tire1);
-
-        tire2.setId(2L);
         tireDao.create(tire2);
     }
 

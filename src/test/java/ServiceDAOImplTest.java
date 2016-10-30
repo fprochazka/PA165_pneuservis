@@ -63,9 +63,8 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
         serviceDao.create(null);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test
     public void createServiceWithAssignedIdTest(){
-        service1.setId(1L);
         serviceDao.create(service1);
     }
 

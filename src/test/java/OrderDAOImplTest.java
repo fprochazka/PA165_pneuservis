@@ -1,19 +1,28 @@
 
 import dao.OrderDAO;
+import dao.ProductDAO;
+import dao.ServiceDAO;
+import dao.TireDAO;
 import entity.Order;
 import entity.Product;
+import entity.Service;
+import entity.Tire;
+import enums.TireManufacturer;
+import enums.TireType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -22,7 +31,6 @@ import org.testng.annotations.Test;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Jaroslav Bonco
@@ -30,7 +38,8 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class OrderDAOImplTest extends AbstractTestNGSpringContextTests{
+public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
+
     @PersistenceContext
     public EntityManager em;
 
@@ -39,38 +48,53 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests{
 
     private Order order1;
     private Order order2;
-    
-   // private Product product1;
-  //  private Product product2;
-        
-   // private List products;
-    
+
+    @Autowired
+    private ProductDAO productDao;
+
+    private List products;
+
+    private Tire tire1;
+
+    private Service service1;
+
     @BeforeMethod
-    private void init(){
-        
+    private void init() {
+
         order1 = new Order();
         order2 = new Order();
-        
-  //      product1 = new Product();
-  //      product2 = new Product();
-  //      products = new ArrayList<Product>();
-        
-  //      products.add(product1);
-  //      products.add(product2);        
-        
+
+        products = new ArrayList<Product>();
+
+        tire1 = new Tire();
+        tire1.setManufacturer(TireManufacturer.BARUM);
+        tire1.setType(TireType.SUMMER);
+        tire1.setDiameter(255);
+        tire1.setPrice(new BigDecimal("100.0"));
+        tire1.setTypeOfVehicle("Uzitkove");
+
+        service1 = new Service();
+        service1.setDuration(50);
+        service1.setNameOfService("Vymena pneu");
+        service1.setPrice(new BigDecimal("100.0"));
+        service1.setTypeOfVehicle("Osobne");
+
+        products.add(tire1);
+        products.add(service1);
+
         order1.setClientId(1L);
         order1.setPrice(new BigDecimal("100.0"));
-  //      order1.setAllProducts(products);
+        order1.setAllProducts(products);
         order1.setNote("Please");
 
         order2.setClientId(2L);
         order2.setPrice(new BigDecimal("100.0"));
-  //      order2.setAllProducts(products);
+        order2.setAllProducts(products);
         order2.setNote("Thank you");
     }
-    
+
     @Test
-    public void findByIdTest(){
+    public void findByIdTest() {
         orderDao.create(order1);
         Order o1 = orderDao.findById(order1.getId());
         Assert.assertEquals(o1, order1);
@@ -78,24 +102,23 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void findByNonexistingIdTest(){
+    public void findByNonexistingIdTest() {
         Assert.assertNull(orderDao.findById(new Long(1)));
     }
 
     @Test
-    public void findAllTest(){
-        orderDao.create(order1);
+    public void findAllTest() {
         orderDao.create(order2);
         List<Order> orders = orderDao.findAll();
-        Assert.assertEquals(orders.size(), 2);
+        Assert.assertEquals(orders.size(), 1);
     }
 
     @Test
-    public void updatePersonTest(){
+    public void updatePersonTest() {
         orderDao.create(order1);
+        order1.setNote("Time to update");
+        orderDao.update(order1);
         Order found = orderDao.findById(order1.getId());
-        found.setNote("Time to update");
-        orderDao.update(found);
         Order updated = orderDao.findById(found.getId());
 
         Assert.assertEquals(found.getNote(), updated.getNote());
@@ -103,7 +126,7 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void deleteTest(){
+    public void deleteTest() {
         orderDao.create(order1);
         Assert.assertNotNull(orderDao.findById(order1.getId()));
         orderDao.delete(order1);
@@ -111,40 +134,40 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void clientIdNullTest(){
+    public void clientIdNullTest() {
         order1.setClientId(null);
         orderDao.create(order1);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void priceNullTest(){
+    public void priceNullTest() {
         order1.setPrice(null);
         orderDao.create(order1);
     }
-    
+
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void priceNegativeValueTest(){
+    public void priceNegativeValueTest() {
         order1.setPrice(new BigDecimal("-5.0"));
         orderDao.create(order1);
     }
-  /*  
-   @Test(expectedExceptions = IllegalArgumentException.class)
-    public void listOfProductsNullTest(){
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void listOfProductsNullTest() {
         order1.setAllProducts(null);
         orderDao.create(order1);
     }
-   */ 
+
     @Test
-    public void noteNullTest(){
+    public void noteNullTest() {
         order1.setNote(null);
         orderDao.create(order1);
     }
-    
-    private void assertOrderEquals(Order actual, Order expected){
+
+    private void assertOrderEquals(Order actual, Order expected) {
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getClientId(), expected.getClientId());
         Assert.assertEquals(actual.getPrice(), expected.getPrice());
-  //      Assert.assertEquals(actual.getAllProducts(), expected.getAllProducts());
+        Assert.assertEquals(actual.getAllProducts(), expected.getAllProducts());
         Assert.assertEquals(actual.getNote(), expected.getNote());
     }
 }

@@ -5,7 +5,6 @@
  */
 package dao;
 
-import entity.Service;
 import entity.Tire;
 import enums.TireManufacturer;
 import enums.TireType;

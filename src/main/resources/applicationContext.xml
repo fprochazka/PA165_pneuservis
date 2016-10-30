@@ -49,5 +49,6 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
     <bean id="personDao" class="dao.PersonDAOImpl"></bean>
     <bean id="tireDao" class="dao.TireDAOImpl"></bean>
     <bean id="serviceDao" class="dao.ServiceDAOImpl"></bean>
+    <bean id="productDao" class="dao.ProductDAOImpl"></bean>
    
 </beans>

@@ -16,11 +16,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-public class Service {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+public class Service extends Product {
 
     @NotNull
     @Column(nullable = false)
@@ -33,14 +29,6 @@ public class Service {
     @NotNull
     @Column(nullable = false)
     private String nameOfService;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public boolean hasOwnParts() {
         return ownParts;
@@ -68,17 +56,21 @@ public class Service {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Service service = (Service) o;
 
-        return id == service.id;
+        return super.getId() == service.getId();
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return (int) (super.getId() ^ (super.getId() >>> 32));
     }
 }

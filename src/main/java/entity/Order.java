@@ -8,44 +8,47 @@ package entity;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- * 
- * @author xbonco1
- * Order class
+ *
+ * @author xbonco1 Order class
  */
 @Entity
-@Table(name="PROJECT_ORDER")
-public class Order {    
+@Table(name = "PROJECT_ORDER")
+public class Order {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    
+
     @NotNull
     @Column(nullable = false)
     private Long clientId;
-    
+
     @NotNull
     @Column(nullable = false)
     private BigDecimal price;
 
- /*   @NotNull
+    @NotNull
     @Column(nullable = false)
+    @OneToMany(targetEntity=Product.class, cascade = {CascadeType.ALL})
     private List<Product> listOfProducts;
- */   
-    @Basic(optional = true) 
+
+    @Basic(optional = true)
     private String note;
-    
+
     public Long getId() {
         return id;
     }
@@ -65,33 +68,35 @@ public class Order {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-/*
-    public void addProduct(Product product){
+
+    public void addProduct(Product product) {
         listOfProducts.add(product);
     }
-    
+
     public List<Product> getAllProducts() {
         return listOfProducts;
     }
-    
-    public void setAllProducts(List<Product> products){
+
+    public void setAllProducts(List<Product> products) {
         this.listOfProducts = products;
     }
-    */
-    public String getNote()
-    {
+
+    public String getNote() {
         return note;
     }
-    
-    public void setNote(String note)
-    {
+
+    public void setNote(String note) {
         this.note = note;
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Order order = (Order) o;
 
