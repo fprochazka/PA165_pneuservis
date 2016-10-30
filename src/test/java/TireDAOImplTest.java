@@ -68,7 +68,7 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createServiceWithAssignedIdTest() {
+    public void createTireTest() {
         tireDao.create(tire1);
         tireDao.create(tire2);
     }

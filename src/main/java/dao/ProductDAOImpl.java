@@ -6,6 +6,8 @@
 package dao;
 
 import entity.Product;
+import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -24,7 +26,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void create(Product product) throws IllegalArgumentException {
 
         if (product == null) {
-            throw new IllegalArgumentException("Tire is null null!");
+            throw new IllegalArgumentException("Product is null!");
         }
 
         if (product.getPrice() == null || product.getTypeOfVehicle() == null) {
@@ -38,7 +40,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void update(Product product) throws IllegalArgumentException {
 
         if (product == null) {
-            throw new IllegalArgumentException("product is null!");
+            throw new IllegalArgumentException("Product is null!");
         }
 
         if (product.getPrice() == null || product.getTypeOfVehicle() == null) {
@@ -59,6 +61,30 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product findById(long id) {
         return em.find(Product.class, id);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return em.createQuery("SELECT product FROM Product product", Product.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Product> findByPrice(BigDecimal price) {
+        return em.createQuery("SELECT product FROM Product product WHERE product.price = :price",
+                Product.class).setParameter("price", price).getResultList();
+    }
+
+    @Override
+    public List<Product> findByDescription(String description) {
+        return em.createQuery("SELECT product FROM Product product WHERE product.description LIKE :description",
+                Product.class).setParameter("description", "%" + description + "%").getResultList();
+    }
+
+    @Override
+    public List<Product> findByVehicleType(String typeOfVehicle) {
+        return em.createQuery("SELECT product FROM Product product WHERE product.typeOfVehicle LIKE :typeOfVehicle",
+                Product.class).setParameter("typeOfVehicle", "%" + typeOfVehicle + "%").getResultList();
     }
 
 }
