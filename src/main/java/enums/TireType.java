@@ -9,6 +9,6 @@ package enums;
  *
  * @author Maros Staurovsky
  */
-public enum TyreType {
-    
+public enum TireType {
+    SUMMER, WINTER, ALL_SEASON;
 }

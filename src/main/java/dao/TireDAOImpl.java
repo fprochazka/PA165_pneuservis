@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package dao;
 
 /**
  *
- * @author Maros Staurovsky
+ * @author Matej Sipka
  */
-public class Tyre {
+public class TireDAOImpl {
     
 }
