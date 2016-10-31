@@ -68,7 +68,7 @@ public class TireDAOImpl implements TireDAO {
 
     @Override
     public List<Tire> findBySize(int size) {
-        return em.createQuery("SELECT tire FROM Tire tire WHERE tire.size = :size",
+        return em.createQuery("SELECT tire FROM Tire tire WHERE tire.tireSize = :size",
                 Tire.class).setParameter("size", size).getResultList();
     }
 

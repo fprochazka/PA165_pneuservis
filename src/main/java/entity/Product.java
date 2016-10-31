@@ -66,8 +66,11 @@ public class Product {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.price);
+        hash = 47 * hash + Objects.hashCode(this.description);
+        hash = 47 * hash + Objects.hashCode(this.typeOfVehicle);
         return hash;
     }
 
@@ -80,7 +83,20 @@ public class Product {
             return false;
         }
         final Product other = (Product) obj;
-        return !(!Objects.equals(this.id, other.id) && (this.id == null || !this.id.equals(other.id)));
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.typeOfVehicle, other.typeOfVehicle)) {
+            return false;
+        }
+        return true;
     }
+
 
 }
