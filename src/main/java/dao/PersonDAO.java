@@ -16,9 +16,8 @@ public interface PersonDAO {
     
     /**
      * This method is used to creates a new person
-     * @param person
-     * @return id of newly created person
-     * @throws ConstraintViolationException if there is any constraint violated
+     * @param person creates new person based on parameter
+     * @throws IllegalArgumentException if there is any constraint violated
      */
     
     public void create (Person person) throws IllegalArgumentException;
@@ -26,8 +25,6 @@ public interface PersonDAO {
     /**
      * This method is used to update an existing person
      * @param person with filled, edited parameters
-     * @return cz.muni.pa165.persistence.entity with updated parameters
-     * @throws ConstraintViolationException if there is any constraint violated
      */
     
     public void update (Person person);
