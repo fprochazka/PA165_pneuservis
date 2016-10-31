@@ -18,19 +18,19 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Person {
-    
+
     @NotNull
     @Temporal(TemporalType.DATE)
     private Calendar DateOfBirth;
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    
+
     @NotNull
     @Enumerated
     private PersonType type;
-    
+
     @NotNull
     @Column(nullable = false)
     private String firstname;
@@ -38,26 +38,25 @@ public class Person {
     @NotNull
     @Column(nullable = false)
     private String surname;
-    
+
     @NotNull
     private String login;
-    
+
     private String passwordHash;
-    
-    public Person(){
-        
+
+    public Person() {
+
     }
-    
-    public Person(String FirstName, String Surname, String Login, String PasswordHash, PersonType Type, Calendar DateOfBirth) 
-    {
-        this.firstname = FirstName;
-        this.surname = Surname;
-        this.login = Login;
-        this.passwordHash = PasswordHash;
-        this.DateOfBirth = DateOfBirth;
-        this.type = Type;
+
+    public Person(String firstName, String surname, String login, String passwordHash, PersonType type, Calendar dateOfBirth) {
+        this.firstname = firstName;
+        this.surname = surname;
+        this.login = login;
+        this.passwordHash = passwordHash;
+        this.DateOfBirth = dateOfBirth;
+        this.type = type;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -85,24 +84,20 @@ public class Person {
     public void setLogin(String login) {
         this.login = login;
     }
-    
-    public Calendar getDateOfBirth()
-    {
+
+    public Calendar getDateOfBirth() {
         return DateOfBirth;
     }
-    
-    public void setDateOfBirth(Calendar DoB)
-    {
+
+    public void setDateOfBirth(Calendar DoB) {
         this.DateOfBirth = DoB;
     }
-    
-    public PersonType getPersonType()
-    {
+
+    public PersonType getPersonType() {
         return type;
     }
-    
-    public void setPersonType(PersonType type)
-    {
+
+    public void setPersonType(PersonType type) {
         this.type = type;
     }
 
@@ -123,7 +118,7 @@ public class Person {
         hash = 89 * hash + Objects.hashCode(this.surname);
         hash = 89 * hash + Objects.hashCode(this.firstname);
         hash = 89 * hash + Objects.hashCode(this.type);
-        
+
         return hash;
     }
 
@@ -132,11 +127,11 @@ public class Person {
         if (this == obj) {
             return true;
         }
-        
+
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -164,6 +159,5 @@ public class Person {
         }
         return true;
     }
-    
-    
+
 }
