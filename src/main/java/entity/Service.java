@@ -7,6 +7,7 @@ package entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  *
@@ -60,14 +61,31 @@ public class Service extends Product {
             return false;
         }
 
-        Service service = (Service) o;
+        final Service service = (Service) o;
 
-        return super.getId().equals(service.getId());
-
+        if (!Objects.equals(this.nameOfService, service.getNameOfService())) {
+            return false;
+        }
+        if (!Objects.equals(this.duration, service.getDuration())) {
+            return false;
+        }
+        if (!Objects.equals(this.ownParts, service.hasOwnParts())) {
+            return false;
+        }
+        if (!Objects.equals(super.getId(), service.getId())){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return (int) (super.getId() ^ (super.getId() >>> 32));
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.duration);
+        hash = 89 * hash + Objects.hashCode(this.ownParts);
+        hash = 89 * hash + Objects.hashCode(this.nameOfService);
+        hash = 89 * hash + Objects.hashCode(super.getId());
+
+        return hash;
     }
 }

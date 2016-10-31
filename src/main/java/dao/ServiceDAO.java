@@ -15,16 +15,45 @@ import java.util.List;
  */
 public interface ServiceDAO {
 
-    public void create(Service service) throws IllegalArgumentException;
+    /**
+     * create new service and store in database
+     * @param service - service to be stored
+     * @throws IllegalArgumentException - exeption if service has some illegal arguments
+     */
+    void create(Service service) throws IllegalArgumentException;
 
-    public void delete(Service service) throws IllegalArgumentException;
+    /**
+     * delete service from database
+     * @param service - service to be deleted
+     * @throws IllegalArgumentException - exception if service does not exist if database
+     */
+    void delete(Service service) throws IllegalArgumentException;
 
-    public void update(Service service) throws IllegalArgumentException;
+    /**
+     * update service
+     * @param service -service object with updated attributes
+     * @throws IllegalArgumentException - throws if service has some illegal attributes
+     */
+    void update(Service service) throws IllegalArgumentException;
 
-    public Service findById(long id);
+    /**
+     * Find service by its ID
+     * @param id of service
+     * @return service with given id, if none is found, return null
+     */
+    Service findById(long id);
 
-    public List<Service> findByName(String name);
+    /**
+     * Find service by its name
+     * @param name of service
+     * @return List of services with given name (if there are more)
+     */
+    List<Service> findByName(String name);
 
-    public List<Service> findAllServices();
+    /**
+     * List all available services
+     * @return List of services
+     */
+    List<Service> findAllServices();
 
 }

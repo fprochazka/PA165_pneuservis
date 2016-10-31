@@ -126,6 +126,17 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findByNonexistingIdTest(){
+        Assert.assertNull(serviceDao.findById(new Long(1)));
+    }
+
+    @Test
+    public void findAllTestNull() {
+        Assert.assertEquals(serviceDao.findAllServices().size(), 0);
+    }
+
+
+    @Test
     public void findByNameTest(){
         serviceDao.create(service1);
         serviceDao.create(service2);
