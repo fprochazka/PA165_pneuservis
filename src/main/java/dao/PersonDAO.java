@@ -46,12 +46,12 @@ public interface PersonDAO {
      * @return person with selected id
      */
     
-    public Person FindById (long id);
+    public Person findById (long id);
     
     /**
      * Gets all people which exist at the time 
      * @return list of all people
      */
     
-    public List<Person> FindAll ();
+    public List<Person> findAll ();
 }

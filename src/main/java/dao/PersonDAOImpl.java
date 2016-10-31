@@ -44,12 +44,12 @@ public class PersonDAOImpl implements PersonDAO{
     }
 
     @Override
-    public Person FindById(long id) {
+    public Person findById(long id) {
         return em.find(Person.class, id);
     }
 
     @Override
-    public List<Person> FindAll() {
+    public List<Person> findAll() {
          return em.createQuery("select person from Person person", Person.class)
 				.getResultList();
     }
