@@ -69,6 +69,13 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findAllTestNull()
+    {
+        Assert.assertEquals(personDao.FindAll().size(), 0);
+    }
+    
+    
+    @Test
     public void findAllTest(){
         personDao.create(person1);
         personDao.create(person2);
