@@ -44,11 +44,21 @@ public class Order {
 
     @NotNull
     @Column(nullable = false)
-    @OneToMany(targetEntity=Product.class, cascade = {CascadeType.ALL})
+    @OneToMany(targetEntity = Product.class, cascade = {CascadeType.ALL})
     private List<Product> listOfProducts;
 
     @Basic(optional = true)
     private String note;
+
+    public Order(Long clientId, BigDecimal price, List<Product> listOfProducts, String note) {
+        this.clientId = clientId;
+        this.price = price;
+        this.listOfProducts = listOfProducts;
+        this.note = note;
+    }
+
+    public Order() {
+    }
 
     public Long getId() {
         return id;
@@ -127,6 +137,5 @@ public class Order {
         }
         return true;
     }
-
 
 }

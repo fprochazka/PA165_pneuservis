@@ -7,6 +7,7 @@ package entity;
 
 import enums.TireManufacturer;
 import enums.TireType;
+import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +44,19 @@ public class Tire extends Product {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireManufacturer manufacturer;
+
+    public Tire(TireType type, int catalogNumber, int tireSize, int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
+        super(price, description, typeOfVehicle);
+        this.type = type;
+        this.catalogNumber = catalogNumber;
+        this.tireSize = tireSize;
+        this.diameter = diameter;
+        this.manufacturer = manufacturer;
+    }
+
+    public Tire() {
+        super();
+    }
 
     public TireType getType() {
         return type;
@@ -133,7 +147,5 @@ public class Tire extends Product {
         }
         return true;
     }
-
-    
 
 }

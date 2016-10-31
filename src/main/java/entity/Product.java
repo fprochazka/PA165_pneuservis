@@ -36,6 +36,15 @@ public class Product {
     @NotNull
     private String typeOfVehicle;
 
+    public Product(BigDecimal price, String description, String typeOfVehicle) {
+        this.price = price;
+        this.description = description;
+        this.typeOfVehicle = typeOfVehicle;
+    }
+
+    public Product() {
+    }
+
     public Long getId() {
         return id;
     }
