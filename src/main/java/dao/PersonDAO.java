@@ -20,7 +20,7 @@ public interface PersonDAO {
     
     public void delete (Person person);
     
-    public Person FindById (long id);
+    public Person findById (long id);
     
     public List<Person> FindAll ();
 }

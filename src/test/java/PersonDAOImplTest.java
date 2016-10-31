@@ -58,14 +58,14 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByIdTest(){
         personDao.create(person1);
-        Person h1 = personDao.FindById(person1.getId());
+        Person h1 = personDao.findById(person1.getId());
         Assert.assertEquals(h1, person1);
         assertPersonEquals(h1, person1);
     }
 
     @Test
     public void findByNonexistingIdTest(){
-        Assert.assertNull(personDao.FindById(new Long(1)));
+        Assert.assertNull(personDao.findById(new Long(1)));
     }
 
     @Test
@@ -79,10 +79,10 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
     public void updatePersonTest(){
         personDao.create(person1);
         personDao.create(person2);
-        Person found = personDao.FindById(person1.getId());
+        Person found = personDao.findById(person1.getId());
         found.setFirstname(found.getFirstname());
         personDao.update(found);
-        Person updated = personDao.FindById(found.getId());
+        Person updated = personDao.findById(found.getId());
 
         Assert.assertEquals(found.getFirstname(), updated.getFirstname());
         assertPersonEquals(found, updated);
@@ -92,9 +92,9 @@ public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
     public void deleteTest(){
         personDao.create(person1);
         personDao.create(person2);
-        Assert.assertNotNull(personDao.FindById(person1.getId()));
+        Assert.assertNotNull(personDao.findById(person1.getId()));
         personDao.delete(person1);
-        Assert.assertNull(personDao.FindById(person1.getId()));
+        Assert.assertNull(personDao.findById(person1.getId()));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

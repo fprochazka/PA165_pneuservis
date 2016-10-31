@@ -12,9 +12,6 @@ import javax.validation.constraints.NotNull;
  *
  * @author Ivan Moscovic
  */
-
-
-
 @Entity
 public class Service extends Product {
 
@@ -65,7 +62,7 @@ public class Service extends Product {
 
         Service service = (Service) o;
 
-        return super.getId() == service.getId();
+        return super.getId().equals(service.getId());
 
     }
 

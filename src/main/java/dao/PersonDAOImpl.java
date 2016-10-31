@@ -44,7 +44,7 @@ public class PersonDAOImpl implements PersonDAO{
     }
 
     @Override
-    public Person FindById(long id) {
+    public Person findById(long id) {
         return em.find(Person.class, id);
     }
 
