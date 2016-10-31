@@ -1,13 +1,10 @@
 ----------------------------------------------------------------
-Mon Oct 31 19:15:55 CET 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0158-1bf4-7634-00000ae75f58 
-on database directory memory:E:\FI\PA165\Pneuservis\Pneuservis\testdb with class loader sun.misc.Launcher$AppClassLoader@75b84c92 
-Loaded from file:/C:/Users/Maros/.m2/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
+Mon Oct 31 18:37:49 CET 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0158-1bd1-92da-0000074767d8 
+on database directory memory:C:\Users\Peeve\škola\7. semester\PA165\projektMaster\PA165_pneuservis\testdb with class loader sun.misc.Launcher$AppClassLoader@6d06d69c 
+Loaded from file:/C:/Users/Peeve/.m2/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_66-b18
-user.dir=E:\FI\PA165\Pneuservis\Pneuservis
+java.runtime.version=1.8.0_74-b02
+user.dir=C:\Users\Peeve\škola\7. semester\PA165\projektMaster\PA165_pneuservis
 os.name=Windows 10
 os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
