@@ -7,6 +7,7 @@ package entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,11 +44,21 @@ public class Order {
 
     @NotNull
     @Column(nullable = false)
-    @OneToMany(targetEntity=Product.class, cascade = {CascadeType.ALL})
+    @OneToMany(targetEntity = Product.class, cascade = {CascadeType.ALL})
     private List<Product> listOfProducts;
 
     @Basic(optional = true)
     private String note;
+
+    public Order(Long clientId, BigDecimal price, List<Product> listOfProducts, String note) {
+        this.clientId = clientId;
+        this.price = price;
+        this.listOfProducts = listOfProducts;
+        this.note = note;
+    }
+
+    public Order() {
+    }
 
     public Long getId() {
         return id;
@@ -90,24 +101,41 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Order order = (Order) o;
-
-        return id == order.id;
-
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.clientId);
+        hash = 41 * hash + Objects.hashCode(this.price);
+        hash = 41 * hash + Objects.hashCode(this.listOfProducts);
+        hash = 41 * hash + Objects.hashCode(this.note);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 17;
-        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.clientId, other.clientId)) {
+            return false;
+        }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.listOfProducts, other.listOfProducts)) {
+            return false;
+        }
+        if (!Objects.equals(this.note, other.note)) {
+            return false;
+        }
+        return true;
     }
+
 }

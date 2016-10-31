@@ -5,22 +5,14 @@
  */
 package entity;
 
-import enums.PersonType;
 import enums.TireManufacturer;
 import enums.TireType;
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -40,7 +32,7 @@ public class Tire extends Product {
     private int catalogNumber;
 
     @NotNull
-    private int size;
+    private int tireSize;
 
     @NotNull
     private int profile;
@@ -52,6 +44,19 @@ public class Tire extends Product {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireManufacturer manufacturer;
+
+    public Tire(TireType type, int catalogNumber, int tireSize, int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
+        super(price, description, typeOfVehicle);
+        this.type = type;
+        this.catalogNumber = catalogNumber;
+        this.tireSize = tireSize;
+        this.diameter = diameter;
+        this.manufacturer = manufacturer;
+    }
+
+    public Tire() {
+        super();
+    }
 
     public TireType getType() {
         return type;
@@ -70,11 +75,11 @@ public class Tire extends Product {
     }
 
     public int getSize() {
-        return size;
+        return tireSize;
     }
 
     public void setSize(int size) {
-        this.size = size;
+        this.tireSize = size;
     }
 
     public int getProfile() {
@@ -102,23 +107,45 @@ public class Tire extends Product {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Tire tire = (Tire) o;
-
-        return Objects.equals(super.getId(), tire.getId());
-
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.type);
+        hash = 29 * hash + this.catalogNumber;
+        hash = 29 * hash + this.tireSize;
+        hash = 29 * hash + this.profile;
+        hash = 29 * hash + this.diameter;
+        hash = 29 * hash + Objects.hashCode(this.manufacturer);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        return (int) (super.getId() ^ (super.getId() >>> 32));
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tire other = (Tire) obj;
+        if (this.type != other.type) {
+            return false;
+        }
+        if (this.catalogNumber != other.catalogNumber) {
+            return false;
+        }
+        if (this.tireSize != other.tireSize) {
+            return false;
+        }
+        if (this.profile != other.profile) {
+            return false;
+        }
+        if (this.diameter != other.diameter) {
+            return false;
+        }
+        if (this.manufacturer != other.manufacturer) {
+            return false;
+        }
+        return true;
     }
 
 }
