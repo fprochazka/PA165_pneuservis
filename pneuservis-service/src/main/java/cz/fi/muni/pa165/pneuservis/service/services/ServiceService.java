@@ -1,53 +1,53 @@
-package cz.fi.muni.pa165.pneuservis.facade;
+package cz.fi.muni.pa165.pneuservis.service.services;
 
-import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
+import cz.fi.muni.pa165.pneuservis.entity.Service;
 
 import java.util.List;
 
 /**
- * @author Ivan Moscovic on 23.11.2016.
+ * @author on 23.11.2016.
  */
-public interface ServiceFacade {
+public interface ServiceService {
 
     /**
      * create new service and store in database
      * @param service - service to be stored
      * @throws IllegalArgumentException - exception if service has some illegal arguments
      */
-    void create(ServiceDTO service) throws IllegalArgumentException;
+    void create(Service service) throws IllegalArgumentException;
 
     /**
      * delete service from database
      * @param service - serviceId to be deleted
      * @throws IllegalArgumentException - exception if service does not exist if database
      */
-    void delete(ServiceDTO service) throws IllegalArgumentException;
+    void delete(Service service) throws IllegalArgumentException;
 
     /**
      * update service
      * @param service -service object with updated attributes
      * @throws IllegalArgumentException - throws if service has some illegal attributes
      */
-    void update(ServiceDTO service) throws IllegalArgumentException;
+    void update(Service service) throws IllegalArgumentException;
 
     /**
      * Find service by its ID
      * @param id of service
      * @return service with given id, if none is found, return null
      */
-    ServiceDTO findById(long id);
+    Service findById(long id);
 
     /**
      * Find service by its name
      * @param name of service
      * @return List of services with given name (if there are more)
      */
-    List<ServiceDTO> findByName(String name);
+    List<Service> findByName(String name);
 
     /**
      * List all available services
      * @return List of services
      */
-    List<ServiceDTO> findAllServices();
+    List<Service> findAllServices();
 
 }

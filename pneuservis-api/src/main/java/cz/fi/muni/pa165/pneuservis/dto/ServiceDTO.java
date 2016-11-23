@@ -1,5 +1,8 @@
 package cz.fi.muni.pa165.pneuservis.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -8,12 +11,19 @@ import java.util.Objects;
  */
 public class ServiceDTO {
 
+    @NotNull
+    @Min(0)
     private int duration;
+
+    @NotNull
     private boolean ownParts;
+
+    @NotNull
+    @Size(min=1, max=250)
     private String nameOfService;
 
     public ServiceDTO(int duration, boolean ownParts, String nameOfService,
-                      BigDecimal price, String description, String typeOfVehicle) {
+                            BigDecimal price, String description, String typeOfVehicle) {
         //super(price, description, typeOfVehicle);
         this.duration = duration;
         this.ownParts = ownParts;
@@ -24,20 +34,20 @@ public class ServiceDTO {
         super();
     }
 
-    public boolean hasOwnParts() {
-        return ownParts;
-    }
-
-    public void setOwnParts(boolean ownParts) {
-        this.ownParts = ownParts;
-    }
-
     public int getDuration() {
         return duration;
     }
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public boolean hasOwnParts() {
+        return ownParts;
+    }
+
+    public void setOwnParts(boolean ownParts) {
+        this.ownParts = ownParts;
     }
 
     public String getNameOfService() {
@@ -84,4 +94,5 @@ public class ServiceDTO {
 
         return hash;
     }
+
 }

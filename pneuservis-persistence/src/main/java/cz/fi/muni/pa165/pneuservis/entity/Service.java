@@ -7,7 +7,9 @@ package cz.fi.muni.pa165.pneuservis.entity;
 
 import java.math.BigDecimal;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -19,6 +21,7 @@ public class Service extends Product {
 
     @NotNull
     @Column(nullable = false)
+    @Min(0)
     private int duration;
 
     @NotNull
@@ -27,6 +30,7 @@ public class Service extends Product {
 
     @NotNull
     @Column(nullable = false)
+    @Size(min=1, max=250)
     private String nameOfService;
 
     public Service(int duration, boolean ownParts, String nameOfService,
