@@ -20,7 +20,7 @@ public interface PersonFacade {
      * @throws IllegalArgumentException if there is any constraint violated
      */
     
-    void create (PersonDTO person, String password) throws IllegalArgumentException;
+    Long create (PersonDTO person, String password) throws IllegalArgumentException;
     
     /**
      * This method is used to update an existing person
@@ -44,7 +44,7 @@ public interface PersonFacade {
      * @return person with selected id
      */
     
-    PersonDTO findById (long id);
+    PersonDTO findById (Long id);
     
     /**
      * Gets all people which exist at the time 

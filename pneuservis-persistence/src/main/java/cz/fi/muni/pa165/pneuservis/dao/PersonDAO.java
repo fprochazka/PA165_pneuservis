@@ -20,7 +20,7 @@ public interface PersonDAO {
      * @throws IllegalArgumentException if there is any constraint violated
      */
     
-    public void create (Person person) throws IllegalArgumentException;
+    public Long create (Person person) throws IllegalArgumentException;
     
     /**
      * This method is used to update an existing person
@@ -44,7 +44,7 @@ public interface PersonDAO {
      * @return person with selected id
      */
     
-    public Person findById (long id);
+    public Person findById (Long id);
     
     /**
      * Gets all people which exist at the time 

@@ -30,10 +30,10 @@ public class PersonServiceImpl implements PersonService {
     
 
     @Override
-    public void create(Person person, String password) throws IllegalArgumentException {
+    public Long create(Person person, String password) throws IllegalArgumentException {
         try{
             person.setPasswordHash(createHash(password));
-            personDao.create(person);
+            return personDao.create(person);
         }
         catch (ConstraintViolationException | PersistenceException | NullPointerException| IllegalArgumentException ex) {
             throw new PneuservisPortalDataAccessException("cannot create person", ex);
@@ -58,7 +58,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findById(long id) {
+    public Person findById(Long id) {
         try {
             return personDao.findById(id);
         } catch (IllegalArgumentException | PersistenceException | NullPointerException | ConstraintViolationException ex) {

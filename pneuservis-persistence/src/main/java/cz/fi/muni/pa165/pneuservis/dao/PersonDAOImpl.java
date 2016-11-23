@@ -23,7 +23,7 @@ public class PersonDAOImpl implements PersonDAO{
     private EntityManager em;
 
     @Override
-    public void create(Person person) throws IllegalArgumentException {
+    public Long create(Person person) throws IllegalArgumentException {
         if(person.getFirstname()==null || person.getSurname() == null || person.getLogin() == null)
         {
             throw new IllegalArgumentException("Person cannot have null parameter");
@@ -31,6 +31,8 @@ public class PersonDAOImpl implements PersonDAO{
         else
         {
             em.persist(person);
+            em.flush();
+            return person.getId();
         }
     }
 
@@ -45,7 +47,7 @@ public class PersonDAOImpl implements PersonDAO{
     }
 
     @Override
-    public Person findById(long id) {
+    public Person findById(Long id) {
         return em.find(Person.class, id);
     }
 

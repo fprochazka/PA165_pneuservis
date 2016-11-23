@@ -20,7 +20,7 @@ public interface PersonService {
      * @throws IllegalArgumentException if there is any constraint violated
      */
     
-    public void create (Person person, String password) throws IllegalArgumentException;
+    public Long create (Person person, String password) throws IllegalArgumentException;
     
     /**
      * This method is used to update an existing person
@@ -43,7 +43,7 @@ public interface PersonService {
      * @return person with selected id
      */
     
-    public Person findById (long id);
+    public Person findById (Long id);
     
     /**
      * Gets all people which exist at the time 
