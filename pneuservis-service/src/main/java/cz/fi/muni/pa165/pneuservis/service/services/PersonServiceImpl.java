@@ -18,11 +18,15 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Maros Staurovsky
  */
+@Service
+@Transactional
 public class PersonServiceImpl implements PersonService {
     
     @Autowired
