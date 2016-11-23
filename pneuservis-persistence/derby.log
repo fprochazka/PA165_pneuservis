@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Nov 23 17:23:25 CET 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0158-91ff-ba05-00000a95a338 
+on database directory memory:C:\Users\xvh\Documents\GitHub\PA165_pneuservis\pneuservis-persistence\testdb with class loader sun.misc.Launcher$AppClassLoader@4e25154f 
+Loaded from file:/C:/Users/xvh/.m2/repository/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_111-b14
+user.dir=C:\Users\xvh\Documents\GitHub\PA165_pneuservis\pneuservis-persistence
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
