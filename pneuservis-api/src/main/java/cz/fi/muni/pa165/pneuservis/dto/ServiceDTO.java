@@ -1,43 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cz.fi.muni.pa165.pneuservis.entity;
+package cz.fi.muni.pa165.pneuservis.dto;
 
 import java.math.BigDecimal;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- *
- * @author Ivan Moscovic
+ * @author Ivan Moscovic on 23.11.2016.
  */
-@Entity
-public class Service extends Product {
+public class ServiceDTO {
 
-    @NotNull
-    @Column(nullable = false)
     private int duration;
-
-    @NotNull
-    @Column(nullable = false)
     private boolean ownParts;
-
-    @NotNull
-    @Column(nullable = false)
     private String nameOfService;
 
-    public Service(int duration, boolean ownParts, String nameOfService,
-                   BigDecimal price, String description, String typeOfVehicle) {
-        super(price, description, typeOfVehicle);
+    public ServiceDTO(int duration, boolean ownParts, String nameOfService,
+                      BigDecimal price, String description, String typeOfVehicle) {
+        //super(price, description, typeOfVehicle);
         this.duration = duration;
         this.ownParts = ownParts;
         this.nameOfService = nameOfService;
     }
 
-    public Service() {
+    public ServiceDTO() {
         super();
     }
 
@@ -74,7 +57,7 @@ public class Service extends Product {
             return false;
         }
 
-        final Service service = (Service) o;
+        final ServiceDTO service = (ServiceDTO) o;
 
         if (!Objects.equals(this.nameOfService, service.getNameOfService())) {
             return false;
@@ -85,9 +68,9 @@ public class Service extends Product {
         if (!Objects.equals(this.ownParts, service.hasOwnParts())) {
             return false;
         }
-        if (!Objects.equals(super.getId(), service.getId())) {
+        /*if (!Objects.equals(super.getId(), service.getId())) {
             return false;
-        }
+        }*/
         return true;
     }
 
@@ -97,7 +80,7 @@ public class Service extends Product {
         hash = 89 * hash + Objects.hashCode(this.duration);
         hash = 89 * hash + Objects.hashCode(this.ownParts);
         hash = 89 * hash + Objects.hashCode(this.nameOfService);
-        hash = 89 * hash + Objects.hashCode(super.getId());
+        //hash = 89 * hash + Objects.hashCode(super.getId());
 
         return hash;
     }
