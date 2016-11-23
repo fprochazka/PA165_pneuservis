@@ -51,5 +51,34 @@ public class PersonFacadeImpl implements PersonFacade{
     public List<PersonDTO> findAll() {
         return beanMappingService.mapTo(personService.findAll(), PersonDTO.class);
     }
+
+    @Override
+    public List<PersonDTO> findByFirstname(String firstname) {
+        List<Person> person = personService.findByFirstname(firstname);
+        return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
+    }
+
+    @Override
+    public List<PersonDTO> findBySurname(String surname) {
+        List<Person> person = personService.findBySurname(surname);
+        return (person == null) ? null : beanMappingService.mapTo(person, PersonDTO.class);
+    }
+
+    @Override
+    public boolean authenticate(PersonDTO person) {
+        return personService.authenticate(
+                personService.findById(person.getId()), person.getPasswordHash());
+    }
+
+    @Override
+    public PersonDTO findPersonByLogin(String login) {
+        Person person = personService.findPersonByLogin(login);
+       if(person == null){
+           return null;
+                   }
+       else{
+           return beanMappingService.mapTo(person, PersonDTO.class);
+       }
+    }
     
 }

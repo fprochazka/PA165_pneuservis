@@ -52,4 +52,33 @@ public interface PersonFacade {
      */
     
     List<PersonDTO> findAll ();
+    
+    /**
+	 * find person/people with first name
+	 * @param firstname of the person/people
+	 * @return person/people with same first name
+     */
+	public List<PersonDTO> findByFirstname(String firstname);
+
+	/**
+	 * find person/people with surname
+	 * @param surname of the person/people
+	 * @return person/people with same surname
+     */
+	public List<PersonDTO> findBySurname(String surname);
+
+	/**
+	 * authenticate person
+	 * @param person for authentication
+	 * @return true/false
+     */
+	public boolean authenticate(PersonDTO person);
+
+	/**
+	 * find person based on login provided
+	 * @param login that needs to be looked up
+	 * @return person who has provided login
+     */
+        
+        public PersonDTO findPersonByLogin(String login);
 }

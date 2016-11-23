@@ -51,4 +51,33 @@ public interface PersonService {
      */
     
     public List<Person> findAll ();
+    
+    /**
+    * Gets all people who have the same firstname
+    * @param firstname is the firstname we are looking for
+    * @return list of people with the same firstname
+    */
+    List<Person> findByFirstname(String firstname);
+    
+    /**
+    * Gets all people who have the same surname
+    * @param surname is the surname we are looking for
+    * @return list of people with the same surname
+    */
+    List<Person> findBySurname(String surname);
+    
+    /**
+    * Gets all people who have the same login
+    * @param login is the login we are looking for
+    * @return  person with the login provided
+    */
+    Person findPersonByLogin(String login);
+    
+    /**
+     * Try to authenticate a person. Return true only if the hashed password matches the records.
+     * @param person person to authenticate
+     * @param password password string to compare against records
+     * @return true if person is authenticated
+     */
+    boolean authenticate(Person person, String password);
 }

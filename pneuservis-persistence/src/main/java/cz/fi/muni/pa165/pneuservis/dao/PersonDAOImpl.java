@@ -8,6 +8,7 @@ package cz.fi.muni.pa165.pneuservis.dao;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
@@ -52,6 +53,32 @@ public class PersonDAOImpl implements PersonDAO{
     public List<Person> findAll() {
          return em.createQuery("select person from Person person", Person.class)
 				.getResultList();
+    }
+
+    @Override
+    public List<Person> findByFirstname(String firstname) {
+        return em.createQuery("select person from Person person where person.firstname = :firstname")
+                .setParameter("firstname", firstname)
+                .getResultList();
+    }
+
+    @Override
+    public List<Person> findBySurname(String surname) {
+        return em.createQuery("select person from Person person where person.surname = :surname")
+                .setParameter("surname", surname)
+                .getResultList();
+    }
+
+    @Override
+    public Person findByLogin(String login) {
+        if (login == null || login.isEmpty())
+            throw new IllegalArgumentException("Cannot search for null login");
+        try{
+            return em.createQuery("select p from Person p where p.login = :login", Person.class)
+                .setParameter("login", login).getSingleResult();
+        }catch(NoResultException noResult){
+            return null;
+        }
     }
     
 }

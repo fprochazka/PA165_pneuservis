@@ -35,19 +35,6 @@ public class PersonDTO {
 
     private String passwordHash;
 
-    public PersonDTO() {
-
-    }
-
-    public PersonDTO(String firstName, String surname, String login, String passwordHash, PersonType type, Calendar dateOfBirth) {
-        this.firstname = firstName;
-        this.surname = surname;
-        this.login = login;
-        this.passwordHash = passwordHash;
-        this.DateOfBirth = dateOfBirth;
-        this.type = type;
-    }
-
     public Long getId() {
         return id;
     }

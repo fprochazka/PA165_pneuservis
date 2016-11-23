@@ -25,6 +25,7 @@ public interface PersonDAO {
     /**
      * This method is used to update an existing person
      * @param person with filled, edited parameters
+     * @return updated person
      */
     
     public Person update (Person person);
@@ -51,4 +52,27 @@ public interface PersonDAO {
      */
     
     public List<Person> findAll ();
+    
+    /**
+     * Get all people with searched first name from DB
+     * @param firstname of the person
+     * @return list of people with firstname stored in DB
+     */
+    public List<Person> findByFirstname(String firstname);
+
+    /**
+     * Get all people with searched surname from DB
+     * @param surname of the person
+     * @return list of people with surname stored in DB
+     */
+
+    public List<Person> findBySurname(String surname);
+
+    /**
+     * Get all people with searched login from DB
+     * @param login of the person
+     * @return list of people with login stored in DB
+     */
+
+    public Person findByLogin (String login);
 }
