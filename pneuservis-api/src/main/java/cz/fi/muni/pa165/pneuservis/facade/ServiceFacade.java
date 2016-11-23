@@ -19,10 +19,10 @@ public interface ServiceFacade {
 
     /**
      * delete service from database
-     * @param service - service to be deleted
+     * @param serviceId - serviceId to be deleted
      * @throws IllegalArgumentException - exception if service does not exist if database
      */
-    void delete(ServiceDTO service) throws IllegalArgumentException;
+    void delete(Long serviceId) throws IllegalArgumentException;
 
     /**
      * update service
