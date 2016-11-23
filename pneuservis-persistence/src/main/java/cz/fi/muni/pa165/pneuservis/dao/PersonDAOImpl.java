@@ -34,8 +34,8 @@ public class PersonDAOImpl implements PersonDAO{
     }
 
     @Override
-    public void update(Person person) {
-        em.merge(person);
+    public Person update(Person person) {
+       return em.merge(person);
     }
 
     @Override

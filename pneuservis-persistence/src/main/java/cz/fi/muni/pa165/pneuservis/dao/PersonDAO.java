@@ -27,7 +27,7 @@ public interface PersonDAO {
      * @param person with filled, edited parameters
      */
     
-    public void update (Person person);
+    public Person update (Person person);
     
     /**
      * This method is used to delete existing person
