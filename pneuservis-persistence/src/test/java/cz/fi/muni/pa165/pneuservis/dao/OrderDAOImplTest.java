@@ -1,3 +1,4 @@
+package cz.fi.muni.pa165.pneuservis.dao;
 
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
 import cz.fi.muni.pa165.pneuservis.dao.ProductDAO;
