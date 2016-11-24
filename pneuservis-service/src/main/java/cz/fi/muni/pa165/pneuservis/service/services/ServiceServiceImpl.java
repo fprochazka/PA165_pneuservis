@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessE
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 import java.util.List;
 
@@ -21,19 +22,19 @@ public class ServiceServiceImpl implements ServiceService {
     private ServiceDAO serviceDAO;
 
     @Override
-    public void create(Service service) throws IllegalArgumentException {
+    public Service create(Service service) throws IllegalArgumentException {
         try {
-            serviceDAO.create(service);
-        } catch (IllegalArgumentException | NullPointerException | PersistenceException e){
+            return serviceDAO.create(service);
+        } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
             throw new PneuservisPortalDataAccessException("Cannot create service", e);
         }
     }
 
     @Override
-    public void delete(Service service) throws IllegalArgumentException {
+    public Service delete(Service service) throws IllegalArgumentException {
         try {
-            serviceDAO.delete(service);
-        } catch (IllegalArgumentException | NullPointerException | PersistenceException e){
+            return serviceDAO.delete(service);
+        } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
             throw new PneuservisPortalDataAccessException("Cannot delete service", e);
         }
     }
@@ -42,13 +43,13 @@ public class ServiceServiceImpl implements ServiceService {
     public void update(Service service) throws IllegalArgumentException {
         try {
             serviceDAO.update(service);
-        } catch (IllegalArgumentException | NullPointerException | PersistenceException e){
+        } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
             throw new PneuservisPortalDataAccessException("Cannot update service", e);
         }
     }
 
     @Override
-    public Service findById(long id) {
+    public Service findById(Long id) {
         try {
            return serviceDAO.findById(id);
         } catch (IllegalArgumentException | NullPointerException | PersistenceException e){

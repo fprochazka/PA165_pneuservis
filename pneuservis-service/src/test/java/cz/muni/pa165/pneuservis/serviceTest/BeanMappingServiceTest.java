@@ -5,18 +5,16 @@ import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
 
 /**
  * @author Ivan Moscovic
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -27,7 +25,7 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
 
     private ServiceDTO serviceDTO;
 
-    @Before
+    @BeforeClass
     public void setUp() {
 
         service = new Service();

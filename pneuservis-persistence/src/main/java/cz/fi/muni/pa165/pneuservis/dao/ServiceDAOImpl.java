@@ -23,21 +23,24 @@ public class ServiceDAOImpl implements ServiceDAO {
     private EntityManager entityManager;
 
     @Override
-    public void create(Service service) throws IllegalArgumentException {
+    public Service create(Service service) throws IllegalArgumentException {
         if (service == null || service.getNameOfService() == null || service.getDuration() <= 0){
             throw new IllegalArgumentException("Service must have a name and positive duration");
         }
         else {
             entityManager.persist(service);
+            entityManager.flush();
+            return service;
         }
     }
 
     @Override
-    public void delete(Service service) throws IllegalArgumentException{
+    public Service delete(Service service) throws IllegalArgumentException{
         if (service == null){
             throw new IllegalArgumentException("Cannot delete null service");
         }
         entityManager.remove(service);
+        return service;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public Service findById(long id) {
+    public Service findById(Long id) {
         return entityManager.find(Service.class, id);
     }
 

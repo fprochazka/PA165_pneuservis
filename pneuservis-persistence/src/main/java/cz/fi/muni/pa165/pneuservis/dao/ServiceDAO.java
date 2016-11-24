@@ -20,14 +20,14 @@ public interface ServiceDAO {
      * @param service - service to be stored
      * @throws IllegalArgumentException - exeption if service has some illegal arguments
      */
-    void create(Service service) throws IllegalArgumentException;
+    Service create(Service service) throws IllegalArgumentException;
 
     /**
      * delete service from database
      * @param service - service to be deleted
      * @throws IllegalArgumentException - exception if service does not exist if database
      */
-    void delete(Service service) throws IllegalArgumentException;
+    Service delete(Service service) throws IllegalArgumentException;
 
     /**
      * update service
@@ -41,7 +41,7 @@ public interface ServiceDAO {
      * @param id of service
      * @return service with given id, if none is found, return null
      */
-    Service findById(long id);
+    Service findById(Long id);
 
     /**
      * Find service by its name
