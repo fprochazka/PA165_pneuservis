@@ -11,9 +11,21 @@ import java.util.Objects;
  */
 public class ServiceDTO {
 
+    private Long id;
+
     @NotNull
     @Min(0)
     private int duration;
+
+    @Size(min=1, max=250)
+    private String description;
+
+    @NotNull
+    @Min(0)
+    private BigDecimal price;
+
+    @NotNull
+    private String typeOfCar;
 
     @NotNull
     private boolean ownParts;
@@ -23,15 +35,48 @@ public class ServiceDTO {
     private String nameOfService;
 
     public ServiceDTO(int duration, boolean ownParts, String nameOfService,
-                            BigDecimal price, String description, String typeOfVehicle) {
-        //super(price, description, typeOfVehicle);
+                            BigDecimal price, String description, String typeOfCar) {
         this.duration = duration;
         this.ownParts = ownParts;
         this.nameOfService = nameOfService;
+        this.price = price;
+        this.description = description;
+        this.typeOfCar = typeOfCar;
     }
 
     public ServiceDTO() {
-        super();
+    }
+
+    public String getTypeOfCar() {
+        return typeOfCar;
+    }
+
+    public void setTypeOfCar(String typeOfCar) {
+        this.typeOfCar = typeOfCar;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getDuration() {
@@ -78,9 +123,15 @@ public class ServiceDTO {
         if (!Objects.equals(this.ownParts, service.hasOwnParts())) {
             return false;
         }
-        /*if (!Objects.equals(super.getId(), service.getId())) {
+        if (!Objects.equals(this.price, service.price)) {
             return false;
-        }*/
+        }
+        if (!Objects.equals(this.typeOfCar, service.getTypeOfCar())) {
+            return false;
+        }
+        if (!Objects.equals(this.id, service.getId())) {
+            return false;
+        }
         return true;
     }
 
@@ -90,7 +141,9 @@ public class ServiceDTO {
         hash = 89 * hash + Objects.hashCode(this.duration);
         hash = 89 * hash + Objects.hashCode(this.ownParts);
         hash = 89 * hash + Objects.hashCode(this.nameOfService);
-        //hash = 89 * hash + Objects.hashCode(super.getId());
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.typeOfCar);
+        hash = 89 * hash + Objects.hashCode(this.price);
 
         return hash;
     }

@@ -49,10 +49,13 @@ public class Service {
     private String nameOfService;
 
     public Service(int duration, boolean ownParts, String nameOfService,
-                   BigDecimal price, String description, String typeOfVehicle) {
+                   BigDecimal price, String description, String typeOfCar) {
         this.duration = duration;
         this.ownParts = ownParts;
         this.nameOfService = nameOfService;
+        this.price = price;
+        this.description = description;
+        this.typeOfCar = typeOfCar;
     }
 
     public Service() {
@@ -127,6 +130,15 @@ public class Service {
         if (!Objects.equals(this.ownParts, service.hasOwnParts())) {
             return false;
         }
+        if (!Objects.equals(this.price, service.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.typeOfCar, service.getTypeOfCar())) {
+            return false;
+        }
+        if (!Objects.equals(this.id, service.getId())) {
+            return false;
+        }
         return true;
     }
 
@@ -136,6 +148,9 @@ public class Service {
         hash = 89 * hash + Objects.hashCode(this.duration);
         hash = 89 * hash + Objects.hashCode(this.ownParts);
         hash = 89 * hash + Objects.hashCode(this.nameOfService);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.typeOfCar);
+        hash = 89 * hash + Objects.hashCode(this.price);
 
         return hash;
     }

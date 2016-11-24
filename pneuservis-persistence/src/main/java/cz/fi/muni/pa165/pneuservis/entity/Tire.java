@@ -32,10 +32,6 @@ public class Tire {
     private String description;
 
     @NotNull
-    @Column(nullable = false)
-    private String typeOfCar;
-
-    @NotNull
     @Min(0)
     @Column(nullable = false)
     private BigDecimal price;
@@ -46,6 +42,10 @@ public class Tire {
 
     @NotNull
     private int tireSize;
+
+    @NotNull
+    @Column(nullable = false)
+    private String typeOfCar;
 
     @NotNull
     private int profile;
@@ -59,12 +59,15 @@ public class Tire {
     private TireManufacturer manufacturer;
     
     public Tire(TireType type, int catalogNumber, int tireSize,
-                int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
+                int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfCar) {
         this.type = type;
         this.catalogNumber = catalogNumber;
         this.tireSize = tireSize;
         this.diameter = diameter;
         this.manufacturer = manufacturer;
+        this.price = price;
+        this.description = description;
+        this.typeOfCar = typeOfCar;
     }
 
     public Tire() {
@@ -73,7 +76,6 @@ public class Tire {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -159,6 +161,9 @@ public class Tire {
         hash = 29 * hash + this.profile;
         hash = 29 * hash + this.diameter;
         hash = 29 * hash + Objects.hashCode(this.manufacturer);
+        hash = 29 * hash + Objects.hashCode(this.price);
+        hash = 29 * hash + Objects.hashCode(this.typeOfCar);
+        hash = 29 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -187,6 +192,15 @@ public class Tire {
             return false;
         }
         if (this.manufacturer != other.manufacturer) {
+            return false;
+        }
+        if (!Objects.equals(this.price, other.price)) {
+            return false;
+        }
+        if (!Objects.equals(this.typeOfCar, other.getTypeOfCar())) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.getId())) {
             return false;
         }
         return true;
