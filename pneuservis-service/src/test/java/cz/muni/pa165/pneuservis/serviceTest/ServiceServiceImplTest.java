@@ -56,20 +56,20 @@ public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
         service1.setOwnParts(true);
         service1.setPrice(BigDecimal.valueOf(100));
         service1.setDescription("Jozko allocated for this job");
-        service1.setTypeOfVehicle("Audi");
+        service1.setTypeOfCar("Audi");
 
         service2.setDuration(25);
         service2.setNameOfService("change of transmission");
         service2.setOwnParts(false);
         service2.setPrice(BigDecimal.valueOf(3000));
         service2.setDescription("Some cool description");
-        service2.setTypeOfVehicle("BMW");
+        service2.setTypeOfCar("BMW");
 
         service3.setDuration(-25);
         service3.setNameOfService("change of transmission");
         service3.setPrice(BigDecimal.valueOf(-3000));
         service3.setDescription("Some cool description");
-        service3.setTypeOfVehicle("BMW");
+        service3.setTypeOfCar("BMW");
 
     }
 
