@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.pneuservis.service.facade;
 
-import cz.fi.muni.pa165.pneuservis.dto.CreateUpdateOrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.CreateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderBillingDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
 
 import java.util.List;
@@ -12,17 +13,17 @@ import java.util.List;
  */
 public class OrderFacadeImpl implements OrderFacade {
     @Override
-    public OrderDTO create(CreateUpdateOrderDTO order) throws IllegalArgumentException {
+    public OrderDTO create(CreateOrderDTO order) {
         return null;
     }
 
     @Override
-    public void update(CreateUpdateOrderDTO order) throws IllegalArgumentException {
+    public void update(UpdateOrderDTO order) {
 
     }
 
     @Override
-    public void delete(Long orderId) {
+    public void delete(OrderDTO order) {
 
     }
 
@@ -44,5 +45,10 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public OrderBillingDTO getOrderBilling(Long orderId) {
         return null;
+    }
+
+    @Override
+    public void confirmPayment(Long orderId) {
+
     }
 }

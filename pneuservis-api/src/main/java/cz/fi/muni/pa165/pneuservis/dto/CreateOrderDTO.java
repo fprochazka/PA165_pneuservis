@@ -1,12 +1,14 @@
 package cz.fi.muni.pa165.pneuservis.dto;
 
+import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
+
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Created by vit.holasek on 24.11.2016.
  */
-public class CreateUpdateOrderDTO {
+public class CreateOrderDTO {
     private Long id;
 
     private Long clientId;
@@ -15,14 +17,17 @@ public class CreateUpdateOrderDTO {
 
     private String note;
 
-    public CreateUpdateOrderDTO(Long id, Long clientId, List<Long> listOfProducts, String note) {
+    private PaymentType PaymentType;
+
+    public CreateOrderDTO(Long id, Long clientId, List<Long> listOfProducts, String note, PaymentType paymentType) {
         this.id = id;
         this.clientId = clientId;
         this.listOfProducts = listOfProducts;
         this.note = note;
+        PaymentType = paymentType;
     }
 
-    public CreateUpdateOrderDTO() { }
+    public CreateOrderDTO() { }
 
     public Long getId() {
         return id;
@@ -60,15 +65,16 @@ public class CreateUpdateOrderDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateUpdateOrderDTO that = (CreateUpdateOrderDTO) o;
+        CreateOrderDTO that = (CreateOrderDTO) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getClientId(), that.getClientId()) &&
                 Objects.equals(getListOfProducts(), that.getListOfProducts()) &&
-                Objects.equals(getNote(), that.getNote());
+                Objects.equals(getNote(), that.getNote()) &&
+                PaymentType == that.PaymentType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getClientId(), getListOfProducts(), getNote());
+        return Objects.hash(getId(), getClientId(), getListOfProducts(), getNote(), PaymentType);
     }
 }
