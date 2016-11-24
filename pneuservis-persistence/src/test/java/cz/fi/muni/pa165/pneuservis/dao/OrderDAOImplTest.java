@@ -1,12 +1,10 @@
 package cz.fi.muni.pa165.pneuservis.dao;
 
 import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
-import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
-import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
+import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import java.math.BigDecimal;
@@ -48,6 +46,9 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private Order order1;
     private Order order2;
 
+    private List<Service> services;
+    private List<Tire> tires;
+
     private Tire tire1;
 
     private Service service1;
@@ -58,26 +59,38 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         order1 = new Order();
         order2 = new Order();
 
+        services = new ArrayList<Service>();
+        tires = new ArrayList<Tire>();
+
         tire1 = new Tire();
         tire1.setManufacturer(TireManufacturer.BARUM);
         tire1.setType(TireType.SUMMER);
         tire1.setDiameter(255);
-//        tire1.setPrice(new BigDecimal("100.0"));
-//        tire1.setTypeOfVehicle("Uzitkove");
+        tire1.setPrice(new BigDecimal("100.0"));
 
         service1 = new Service();
         service1.setDuration(50);
         service1.setNameOfService("Vymena pneu");
-//        service1.setPrice(new BigDecimal("100.0"));
-//        service1.setTypeOfVehicle("Osobne");
+        service1.setPrice(new BigDecimal("100.0"));
+
+        tires.add(tire1);
+        services.add(service1);
 
         order1.setClientId(1L);
-//        order1.setAllProducts(tires);
+        order1.setListOfServices(services);
+        order1.setListOfTires(tires);
         order1.setNote("Please");
+        order1.setPaymentConfirmed(false);
+        order1.setPaymentType(PaymentType.COD);
+        order1.setShipped(false);
 
         order2.setClientId(2L);
-//        order2.setAllProducts(tires);
+        order1.setListOfServices(services);
+        order1.setListOfTires(tires);
         order2.setNote("Thank you");
+        order1.setPaymentConfirmed(false);
+        order1.setPaymentType(PaymentType.TRANSFER);
+        order1.setShipped(true);
     }
 
     @Test
@@ -126,16 +139,6 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         orderDao.create(order1);
     }
 
-//    @Test(expectedExceptions = IllegalArgumentException.class)
-//    public void priceNullTest() {
-//        orderDao.create(order1);
-//    }
-
-//    @Test(expectedExceptions = IllegalArgumentException.class)
-//    public void priceNegativeValueTest() {
-//        orderDao.create(order1);
-//    }
-
     @Test
     public void noteNullTest() {
         order1.setNote(null);
@@ -145,6 +148,8 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private void assertOrderEquals(Order actual, Order expected) {
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getClientId(), expected.getClientId());
+        Assert.assertEquals(actual.getListOfServices(), expected.getListOfServices());
+        Assert.assertEquals(actual.getListOfTires(), expected.getListOfTires());
         Assert.assertEquals(actual.getNote(), expected.getNote());
     }
 }
