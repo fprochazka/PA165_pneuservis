@@ -25,7 +25,7 @@ public class TireDAOImpl implements TireDAO {
     private EntityManager em;
 
     @Override
-    public void create(Tire tire) throws IllegalArgumentException {
+    public Tire create(Tire tire) throws IllegalArgumentException {
 
         if (tire == null) {
             throw new IllegalArgumentException("Tire is null null!");
@@ -37,11 +37,12 @@ public class TireDAOImpl implements TireDAO {
             throw new IllegalArgumentException("Diameter must be a positive number.");
         } else {
             em.persist(tire);
+            return tire;
         }
     }
 
     @Override
-    public void update(Tire tire) {
+    public Tire update(Tire tire) {
 
         if (tire == null) {
             throw new IllegalArgumentException("Tire is null null!");
@@ -53,6 +54,8 @@ public class TireDAOImpl implements TireDAO {
             throw new IllegalArgumentException("Diameter must be a positive number.");
         } else {
             em.merge(tire);
+            em.flush();
+            return tire;
         }
     }
 

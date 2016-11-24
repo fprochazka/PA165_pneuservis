@@ -5,7 +5,7 @@
  */
 package cz.fi.muni.pa165.pneuservis.facade;
 
-import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
+import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
 import java.util.List;
 
 /**
@@ -14,19 +14,26 @@ import java.util.List;
  */
 public interface TireFacade {
 
-    Long create(PersonDTO person, String password) throws IllegalArgumentException;
+    void create(TireDTO tire) throws IllegalArgumentException;
 
-    PersonDTO update(PersonDTO person);
+    void update(TireDTO tire);
 
-    void delete(PersonDTO person);
+    void delete(TireDTO tire);
 
-    PersonDTO findById(Long id);
+    TireDTO findById(Long id);
 
-    List<PersonDTO> findAll();
-
-    public List<PersonDTO> findByFirstname(String firstname);
-
-    public List<PersonDTO> findBySurname(String surname);
-
-    public PersonDTO findPersonByLogin(String login);
+    List<TireDTO> findAll();
+    
+    List<TireDTO> findByCatalogNumber();
+    
+    List<TireDTO> findByProfile();
+    
+    List<TireDTO> findByDiameter();
+    
+    List<TireDTO> findBySize();
+    
+    List<TireDTO> findByType();
+    
+    List<TireDTO> findByManufacturer();
+    
 }

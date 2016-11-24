@@ -22,14 +22,14 @@ public interface TireDAO {
      * @param tire the Tire object
      * @throws IllegalArgumentException
      */
-    void create(Tire tire) throws IllegalArgumentException;
+    Tire create(Tire tire) throws IllegalArgumentException;
 
     /**
      * Update a tire in the DB.
      *
      * @param tire
      */
-    void update(Tire tire);
+    Tire update(Tire tire);
 
     /**
      * Delete a tire in the DB.
