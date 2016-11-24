@@ -8,6 +8,7 @@ package cz.muni.pa165.pneuservis.serviceTest;
 import cz.fi.muni.pa165.pneuservis.dao.PersonDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
 import cz.fi.muni.pa165.pneuservis.enums.PersonType;
+import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.service.services.PersonService;
 import cz.fi.muni.pa165.pneuservis.service.services.PersonServiceImpl;
@@ -20,6 +21,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -29,7 +32,8 @@ import org.testng.annotations.Test;
  *
  * @author Maros Staurovsky
  */
-public class PersonServiceImplTest {
+@ContextConfiguration(classes = ServiceConfiguration.class)
+public class PersonServiceImplTest extends AbstractTestNGSpringContextTests {
     @Mock
     private PersonDAO personDao;    
 
@@ -41,11 +45,10 @@ public class PersonServiceImplTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    
     private Person person;
     private Person person1;
     private Person person2;
-    private Person badperson;
+    private Person badPerson;
     
     @BeforeMethod
     public void prepareTest() {
@@ -70,12 +73,12 @@ public class PersonServiceImplTest {
     
         
         // findById
-        when(personDao.findById(0l)).thenReturn(null);
-        when(personDao.findById(1l)).thenReturn(person1);
-        when(personDao.findById(2l)).thenReturn(person2);
+        when(personDao.findById(0L)).thenReturn(null);
+        when(personDao.findById(1L)).thenReturn(person1);
+        when(personDao.findById(2L)).thenReturn(person2);
         
         //registered (Person.class)
-        when(personDao.create(person1)).thenReturn(1l);
+        when(personDao.create(person1)).thenReturn(1L);
         
         //findByName
         when(personDao.findByFirstname(person1.getFirstname())).thenReturn(Arrays.asList(person1));
@@ -86,12 +89,8 @@ public class PersonServiceImplTest {
         
         //findAll
         when(personDao.findAll()).thenReturn(Arrays.asList(person, person1, person2));
-        
-        
-        
     }
 
-    
     @Test
     public void createPersonTest() {
         personService.create(person, "hashPassword123");  
@@ -100,12 +99,12 @@ public class PersonServiceImplTest {
 
     @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
     public void registerPersonBadCredentialsTest() {
-        badperson = new Person();
-        badperson.setFirstname("Bad");
-        badperson.setSurname("Person");
-        when(personDao.create(badperson)).thenThrow(PneuservisPortalDataAccessException.class);
+        badPerson = new Person();
+        badPerson.setFirstname("Bad");
+        badPerson.setSurname("Person");
+        when(personDao.create(badPerson)).thenThrow(IllegalArgumentException.class);
 
-        personService.create(badperson, "hashPassword123");
+        personService.create(badPerson, "hashPassword123");
 
     }
 
@@ -117,16 +116,14 @@ public class PersonServiceImplTest {
 
     @Test
     public void getAllPersonTest() {
-        
         Assert.assertEquals(personService.findAll().size(), 3);
-        
         verify(personDao).findAll();
     }
 
     @Test
     public void findPersonByIdTest() {
         Assert.assertEquals(personService.findById(1L), person1);
-        verify(personDao).findById(1l);
+        verify(personDao).findById(1L);
     }
 
 //    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
@@ -148,27 +145,24 @@ public class PersonServiceImplTest {
         personService.create(person1, "hashPassword123");
         verify(personDao).create(person1);
         personService.authenticate(person1, "hashPassword123");
-        
-
     }
 
     @Test
     public void authenticatePersonBadUsernameTest() {
-        badperson = new Person();
-        badperson.setFirstname("Bad");
-        badperson.setSurname("Person");
-        badperson.setLogin("badPerson");
+        badPerson = new Person();
+        badPerson.setFirstname("Bad");
+        badPerson.setSurname("Person");
+        badPerson.setLogin("badPerson");
 
-        personService.create(badperson, "badPassword");
+        personService.create(badPerson, "badPassword");
         personService.create(person1, "hashPassword123");
 
-        Assert.assertFalse(personService.authenticate(badperson, "hashPassword123"));
+        Assert.assertFalse(personService.authenticate(badPerson, "hashPassword123"));
     }
 
     @Test
     public void authenticatePersonBadPasswordTest() {
         personService.create(person1, "hashPassword123");
-
         Assert.assertFalse(personService.authenticate(person1, "badPassword"));
     }
 }

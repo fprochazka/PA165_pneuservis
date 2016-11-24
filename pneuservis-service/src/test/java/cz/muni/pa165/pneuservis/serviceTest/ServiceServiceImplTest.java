@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.when;
  * @author Ivan Moscovic on 24.11.2016.
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class ServiceServiceImplTest {
+public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private ServiceDAO serviceDAO;
