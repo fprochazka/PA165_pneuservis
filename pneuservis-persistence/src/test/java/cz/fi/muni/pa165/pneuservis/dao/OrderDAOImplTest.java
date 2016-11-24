@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.pneuservis.dao;
 
+import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
 import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
@@ -33,7 +34,7 @@ import org.testng.annotations.Test;
  *
  * @author Jaroslav Bonco
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {

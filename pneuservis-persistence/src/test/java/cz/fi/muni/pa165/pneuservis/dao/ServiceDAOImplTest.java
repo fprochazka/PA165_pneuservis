@@ -4,6 +4,7 @@ package cz.fi.muni.pa165.pneuservis.dao;/*
  * and open the template in the editor.
  */
 
+import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 
@@ -20,6 +21,7 @@ import org.testng.annotations.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -28,7 +30,7 @@ import java.util.List;
  * @author Ivan Moscovic
  */
 
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
@@ -51,10 +53,14 @@ public class ServiceDAOImplTest extends AbstractTestNGSpringContextTests {
         service1.setDuration(5);
         service1.setNameOfService("Change of gear");
         service1.setOwnParts(false);
+        service1.setPrice(BigDecimal.valueOf(1200));
+        service1.setTypeOfCar("BMW");
 
         service2.setDuration(2);
         service2.setNameOfService("Change of oil");
         service2.setOwnParts(true);
+        service2.setPrice(BigDecimal.valueOf(200));
+        service2.setTypeOfCar("Audi");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

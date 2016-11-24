@@ -4,10 +4,13 @@ package cz.fi.muni.pa165.pneuservis.dao;/*
  * and open the template in the editor.
  */
 
+import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
+
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +28,7 @@ import org.testng.annotations.BeforeMethod;
  *
  * @author Matej Šípka
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
@@ -51,6 +54,8 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
         tire1.setProfile(40);
         tire1.setSize(255);
         tire1.setType(TireType.SUMMER);
+        tire1.setPrice(BigDecimal.valueOf(150));
+        tire1.setTypeOfCar("Audi");
 
         tire2.setCatalogNumber(3565);
         tire2.setManufacturer(TireManufacturer.HANKOOK);
@@ -58,6 +63,8 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
         tire2.setProfile(45);
         tire2.setSize(225);
         tire2.setType(TireType.WINTER);
+        tire2.setPrice(BigDecimal.valueOf(250));
+        tire2.setTypeOfCar("BMW");
 
     }
 

@@ -44,7 +44,7 @@ public interface TireDAO {
      * @param id the tires ID
      * @return found tire or null if not found
      */
-    Tire findById(long id);
+    Tire findById(Long id);
 
     /**
      * Finds all tires

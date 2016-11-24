@@ -8,6 +8,8 @@ package cz.fi.muni.pa165.pneuservis.dao;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Matej Sipka
  */
+@Repository
 public class TireDAOImpl implements TireDAO {
 
     @PersistenceContext
@@ -62,7 +65,7 @@ public class TireDAOImpl implements TireDAO {
     }
 
     @Override
-    public Tire findById(long id) {
+    public Tire findById(Long id) {
         return em.find(Tire.class, id);
     }
 
@@ -106,7 +109,7 @@ public class TireDAOImpl implements TireDAO {
     @Override
     public List<Tire> findByProfile(int profile) {
         return em.createQuery("SELECT tire FROM Tire tire WHERE tire.profile = :profile",
-                Tire.class).setParameter("diameter", profile).getResultList();
+                Tire.class).setParameter("profile", profile).getResultList();
     }
 
 }

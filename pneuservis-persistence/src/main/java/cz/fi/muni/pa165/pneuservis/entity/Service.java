@@ -20,7 +20,19 @@ import java.util.Objects;
 public class Service {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
+    private String description;
+
+    @NotNull
+    @Column(nullable = false)
+    private String typeOfCar;
+
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
+    private BigDecimal price;
     
     @NotNull
     @Column(nullable = false)
@@ -44,7 +56,31 @@ public class Service {
     }
 
     public Service() {
-        super();
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTypeOfCar() {
+        return typeOfCar;
+    }
+
+    public void setTypeOfCar(String typeOfCar) {
+        this.typeOfCar = typeOfCar;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public boolean hasOwnParts() {

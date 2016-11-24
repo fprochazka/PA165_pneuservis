@@ -9,11 +9,8 @@ import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,12 +21,24 @@ import javax.validation.constraints.NotNull;
 public class Tire {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireType type;
+
+    private String description;
+
+    @NotNull
+    @Column(nullable = false)
+    private String typeOfCar;
+
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
+    private BigDecimal price;
 
     @NotNull
     @Column(unique = true)
@@ -49,8 +58,8 @@ public class Tire {
     @Column(nullable = false)
     private TireManufacturer manufacturer;
     
-    public Tire(TireType type, int catalogNumber, int tireSize, int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
-//        super(price, description, typeOfVehicle);
+    public Tire(TireType type, int catalogNumber, int tireSize,
+                int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
         this.type = type;
         this.catalogNumber = catalogNumber;
         this.tireSize = tireSize;
@@ -59,7 +68,38 @@ public class Tire {
     }
 
     public Tire() {
-        super();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTypeOfCar() {
+        return typeOfCar;
+    }
+
+    public void setTypeOfCar(String typeOfCar) {
+        this.typeOfCar = typeOfCar;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getTireSize() {
+        return tireSize;
+    }
+
+    public void setTireSize(int tireSize) {
+        this.tireSize = tireSize;
     }
 
     public TireType getType() {

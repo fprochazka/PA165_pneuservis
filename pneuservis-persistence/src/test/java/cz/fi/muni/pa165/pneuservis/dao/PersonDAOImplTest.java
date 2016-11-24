@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.pneuservis.dao;/*
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
 import cz.fi.muni.pa165.pneuservis.enums.PersonType;
 import cz.fi.muni.pa165.pneuservis.dao.PersonDAO;
@@ -22,7 +23,7 @@ import org.testng.annotations.Test;
  *
  * @author Maros Staurovsky
  */
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class PersonDAOImplTest extends AbstractTestNGSpringContextTests {
