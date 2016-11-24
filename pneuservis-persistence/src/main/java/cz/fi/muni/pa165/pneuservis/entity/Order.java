@@ -40,19 +40,14 @@ public class Order {
 
     @NotNull
     @Column(nullable = false)
-    private BigDecimal price;
-
-    @NotNull
-    @Column(nullable = false)
     @OneToMany(targetEntity = Product.class, cascade = {CascadeType.ALL})
     private List<Product> listOfProducts;
 
     @Basic(optional = true)
     private String note;
 
-    public Order(Long clientId, BigDecimal price, List<Product> listOfProducts, String note) {
+    public Order(Long clientId, List<Product> listOfProducts, String note) {
         this.clientId = clientId;
-        this.price = price;
         this.listOfProducts = listOfProducts;
         this.note = note;
     }
@@ -70,14 +65,6 @@ public class Order {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public void addProduct(Product product) {
@@ -105,7 +92,6 @@ public class Order {
         int hash = 7;
         hash = 41 * hash + Objects.hashCode(this.id);
         hash = 41 * hash + Objects.hashCode(this.clientId);
-        hash = 41 * hash + Objects.hashCode(this.price);
         hash = 41 * hash + Objects.hashCode(this.listOfProducts);
         hash = 41 * hash + Objects.hashCode(this.note);
         return hash;
@@ -124,9 +110,6 @@ public class Order {
             return false;
         }
         if (!Objects.equals(this.clientId, other.clientId)) {
-            return false;
-        }
-        if (!Objects.equals(this.price, other.price)) {
             return false;
         }
         if (!Objects.equals(this.listOfProducts, other.listOfProducts)) {

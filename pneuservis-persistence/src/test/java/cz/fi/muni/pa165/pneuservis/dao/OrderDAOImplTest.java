@@ -83,12 +83,10 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         products.add(service1);
 
         order1.setClientId(1L);
-        order1.setPrice(new BigDecimal("100.0"));
         order1.setAllProducts(products);
         order1.setNote("Please");
 
         order2.setClientId(2L);
-        order2.setPrice(new BigDecimal("100.0"));
         order2.setAllProducts(products);
         order2.setNote("Thank you");
     }
@@ -141,13 +139,11 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void priceNullTest() {
-        order1.setPrice(null);
         orderDao.create(order1);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void priceNegativeValueTest() {
-        order1.setPrice(new BigDecimal("-5.0"));
         orderDao.create(order1);
     }
 
@@ -166,7 +162,6 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private void assertOrderEquals(Order actual, Order expected) {
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getClientId(), expected.getClientId());
-        Assert.assertEquals(actual.getPrice(), expected.getPrice());
         Assert.assertEquals(actual.getAllProducts(), expected.getAllProducts());
         Assert.assertEquals(actual.getNote(), expected.getNote());
     }
