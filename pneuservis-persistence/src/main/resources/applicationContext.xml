@@ -49,6 +49,5 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
     <bean id="personDao" class="cz.fi.muni.pa165.pneuservis.dao.PersonDAOImpl"></bean>
     <bean id="tireDao" class="cz.fi.muni.pa165.pneuservis.dao.TireDAOImpl"></bean>
     <bean id="serviceDao" class="cz.fi.muni.pa165.pneuservis.dao.ServiceDAOImpl"></bean>
-    <bean id="productDao" class="cz.fi.muni.pa165.pneuservis.dao.ProductDAOImpl"></bean>
    
 </beans>

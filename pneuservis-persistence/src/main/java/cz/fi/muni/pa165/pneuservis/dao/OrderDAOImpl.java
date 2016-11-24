@@ -26,7 +26,8 @@ public class OrderDAOImpl implements OrderDAO {
     public void create(Order order) throws IllegalArgumentException {
         if (order == null
                 || order.getClientId() == null
-                || order.getAllProducts() == null) {
+//                || order.getAllProducts() == null)
+                ){
             throw new IllegalArgumentException("Order must have a clientID, some ordered products and the price cannot be negative");
         }
         em.persist(order);
@@ -44,7 +45,8 @@ public class OrderDAOImpl implements OrderDAO {
     public void update(Order order) throws IllegalArgumentException {
         if (order == null
                 || order.getClientId() == null
-                || order.getAllProducts() == null) {
+//                || order.getAllProducts() == null
+                ) {
             throw new IllegalArgumentException("Order must have a clientID, an overall price(cannot be negative number) and some ordered products");
         }
         em.merge(order);

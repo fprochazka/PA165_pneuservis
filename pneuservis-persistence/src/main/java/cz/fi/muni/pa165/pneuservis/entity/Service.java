@@ -17,8 +17,11 @@ import java.util.Objects;
  * @author Ivan Moscovic
  */
 @Entity
-public class Service extends Product {
+public class Service {
 
+    @Id
+    private Long id;
+    
     @NotNull
     @Column(nullable = false)
     @Min(0)
@@ -35,7 +38,6 @@ public class Service extends Product {
 
     public Service(int duration, boolean ownParts, String nameOfService,
                    BigDecimal price, String description, String typeOfVehicle) {
-        super(price, description, typeOfVehicle);
         this.duration = duration;
         this.ownParts = ownParts;
         this.nameOfService = nameOfService;
@@ -89,9 +91,6 @@ public class Service extends Product {
         if (!Objects.equals(this.ownParts, service.hasOwnParts())) {
             return false;
         }
-        if (!Objects.equals(super.getId(), service.getId())) {
-            return false;
-        }
         return true;
     }
 
@@ -101,8 +100,15 @@ public class Service extends Product {
         hash = 89 * hash + Objects.hashCode(this.duration);
         hash = 89 * hash + Objects.hashCode(this.ownParts);
         hash = 89 * hash + Objects.hashCode(this.nameOfService);
-        hash = 89 * hash + Objects.hashCode(super.getId());
 
         return hash;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

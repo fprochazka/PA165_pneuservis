@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,8 +21,11 @@ import javax.validation.constraints.NotNull;
  * @author Matej Sipka
  */
 @Entity
-public class Tire extends Product {
+public class Tire {
 
+    @Id
+    private Long id;
+    
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,9 +48,9 @@ public class Tire extends Product {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TireManufacturer manufacturer;
-
+    
     public Tire(TireType type, int catalogNumber, int tireSize, int diameter, TireManufacturer manufacturer, BigDecimal price, String description, String typeOfVehicle) {
-        super(price, description, typeOfVehicle);
+//        super(price, description, typeOfVehicle);
         this.type = type;
         this.catalogNumber = catalogNumber;
         this.tireSize = tireSize;
@@ -146,6 +150,14 @@ public class Tire extends Product {
             return false;
         }
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

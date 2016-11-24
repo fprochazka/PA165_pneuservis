@@ -1,11 +1,9 @@
 package cz.fi.muni.pa165.pneuservis.dao;
 
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
-import cz.fi.muni.pa165.pneuservis.dao.ProductDAO;
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
 import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Product;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
@@ -49,11 +47,6 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private Order order1;
     private Order order2;
 
-    @Autowired
-    private ProductDAO productDao;
-
-    private List products;
-
     private Tire tire1;
 
     private Service service1;
@@ -64,30 +57,25 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         order1 = new Order();
         order2 = new Order();
 
-        products = new ArrayList<Product>();
-
         tire1 = new Tire();
         tire1.setManufacturer(TireManufacturer.BARUM);
         tire1.setType(TireType.SUMMER);
         tire1.setDiameter(255);
-        tire1.setPrice(new BigDecimal("100.0"));
-        tire1.setTypeOfVehicle("Uzitkove");
+//        tire1.setPrice(new BigDecimal("100.0"));
+//        tire1.setTypeOfVehicle("Uzitkove");
 
         service1 = new Service();
         service1.setDuration(50);
         service1.setNameOfService("Vymena pneu");
-        service1.setPrice(new BigDecimal("100.0"));
-        service1.setTypeOfVehicle("Osobne");
-
-        products.add(tire1);
-        products.add(service1);
+//        service1.setPrice(new BigDecimal("100.0"));
+//        service1.setTypeOfVehicle("Osobne");
 
         order1.setClientId(1L);
-        order1.setAllProducts(products);
+//        order1.setAllProducts(tires);
         order1.setNote("Please");
 
         order2.setClientId(2L);
-        order2.setAllProducts(products);
+//        order2.setAllProducts(tires);
         order2.setNote("Thank you");
     }
 
@@ -137,21 +125,15 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         orderDao.create(order1);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void priceNullTest() {
-        orderDao.create(order1);
-    }
+//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    public void priceNullTest() {
+//        orderDao.create(order1);
+//    }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void priceNegativeValueTest() {
-        orderDao.create(order1);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void listOfProductsNullTest() {
-        order1.setAllProducts(null);
-        orderDao.create(order1);
-    }
+//    @Test(expectedExceptions = IllegalArgumentException.class)
+//    public void priceNegativeValueTest() {
+//        orderDao.create(order1);
+//    }
 
     @Test
     public void noteNullTest() {
@@ -162,7 +144,6 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
     private void assertOrderEquals(Order actual, Order expected) {
         Assert.assertEquals(actual.getId(), expected.getId());
         Assert.assertEquals(actual.getClientId(), expected.getClientId());
-        Assert.assertEquals(actual.getAllProducts(), expected.getAllProducts());
         Assert.assertEquals(actual.getNote(), expected.getNote());
     }
 }

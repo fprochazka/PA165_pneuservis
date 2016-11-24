@@ -38,17 +38,17 @@ public class Order {
     @Column(nullable = false)
     private Long clientId;
 
-    @NotNull
-    @Column(nullable = false)
-    @OneToMany(targetEntity = Product.class, cascade = {CascadeType.ALL})
-    private List<Product> listOfProducts;
+//    @NotNull
+//    @Column(nullable = false)
+//    @OneToMany(targetEntity = Product.class, cascade = {CascadeType.ALL})
+//    private List<Product> listOfProducts;
 
     @Basic(optional = true)
     private String note;
 
-    public Order(Long clientId, List<Product> listOfProducts, String note) {
+    public Order(Long clientId, /* List<Product> listOfProducts,*/ String note) {
         this.clientId = clientId;
-        this.listOfProducts = listOfProducts;
+//        this.listOfProducts = listOfProducts;
         this.note = note;
     }
 
@@ -67,17 +67,17 @@ public class Order {
         this.clientId = clientId;
     }
 
-    public void addProduct(Product product) {
-        listOfProducts.add(product);
-    }
+//    public void addProduct(Product product) {
+//        listOfProducts.add(product);
+//    }
 
-    public List<Product> getAllProducts() {
-        return listOfProducts;
-    }
-
-    public void setAllProducts(List<Product> products) {
-        this.listOfProducts = products;
-    }
+//    public List<Product> getAllProducts() {
+//        return listOfProducts;
+//    }
+//
+//    public void setAllProducts(List<Product> products) {
+//        this.listOfProducts = products;
+//    }
 
     public String getNote() {
         return note;
@@ -92,7 +92,7 @@ public class Order {
         int hash = 7;
         hash = 41 * hash + Objects.hashCode(this.id);
         hash = 41 * hash + Objects.hashCode(this.clientId);
-        hash = 41 * hash + Objects.hashCode(this.listOfProducts);
+//        hash = 41 * hash + Objects.hashCode(this.listOfProducts);
         hash = 41 * hash + Objects.hashCode(this.note);
         return hash;
     }
@@ -112,9 +112,9 @@ public class Order {
         if (!Objects.equals(this.clientId, other.clientId)) {
             return false;
         }
-        if (!Objects.equals(this.listOfProducts, other.listOfProducts)) {
-            return false;
-        }
+//        if (!Objects.equals(this.listOfProducts, other.listOfProducts)) {
+//            return false;
+//        }
         if (!Objects.equals(this.note, other.note)) {
             return false;
         }
