@@ -3,7 +3,9 @@ package cz.fi.muni.pa165.pneuservis.service.services;
 import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceException;
 
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 /**
  * @author Ivan Moscovic on 23.11.2016.
  */
+@org.springframework.stereotype.Service
+@Transactional
 public class ServiceServiceImpl implements ServiceService {
 
     @Autowired

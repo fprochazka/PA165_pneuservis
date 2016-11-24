@@ -28,12 +28,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @NotNull
+    //@NotNull
     private BigDecimal price;
 
     private String description;
 
-    @NotNull
+    //@NotNull
     private String typeOfVehicle;
 
     public Product(BigDecimal price, String description, String typeOfVehicle) {

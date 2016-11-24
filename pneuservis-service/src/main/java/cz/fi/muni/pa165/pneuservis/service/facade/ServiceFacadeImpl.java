@@ -6,12 +6,15 @@ import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.service.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * @author Ivan Moscovic on 23.11.2016.
  */
+@org.springframework.stereotype.Service
+@Transactional
 public class ServiceFacadeImpl implements ServiceFacade {
 
     @Autowired
