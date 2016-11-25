@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDAO orderDao;
+
+    private int vat = 21;
 
     @Override
     public Order create(Order order) throws PneuservisPortalDataAccessException {
@@ -82,20 +85,25 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    private BigDecimal countPriceWithVAT(BigDecimal price) {
+        return price.multiply(new BigDecimal(100)).divide(new BigDecimal(100 - vat), 0, RoundingMode.HALF_UP);
+    }
+
     @Override
     public OrderBilling getOrderBilling(Long orderId) throws PneuservisPortalDataAccessException {
         if (orderId == null) throw new IllegalArgumentException("OrderId is null.");
         try {
             Order order = orderDao.findById(orderId);
-            int vat = 21;
-            BigDecimal coefficient = (new BigDecimal(100)).divide(new BigDecimal(100 - vat));
+            if (order == null) return null;
 
             List<BillingItem> items = new ArrayList<>();
             items.addAll(order.getListOfServices().stream()
-                    .map(service -> new BillingItem(service.getDescription(), vat, service.getPrice(), service.getPrice().multiply(coefficient)))
+                    .map(service -> new BillingItem(service.getDescription(), vat, service.getPrice(),
+                            countPriceWithVAT(service.getPrice())))
                     .collect(Collectors.toList()));
             items.addAll(order.getListOfTires().stream()
-                    .map(tire -> new BillingItem(tire.getDescription(), vat, tire.getPrice(), tire.getPrice().multiply(coefficient)))
+                    .map(tire -> new BillingItem(tire.getDescription(), vat, tire.getPrice(),
+                            countPriceWithVAT(tire.getPrice())))
                     .collect(Collectors.toList()));
 
             BigDecimal sum = items.stream()

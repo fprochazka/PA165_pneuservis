@@ -7,6 +7,7 @@ package cz.fi.muni.pa165.pneuservis.entity;
 
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -63,7 +64,10 @@ public class Order {
         this.paymentType = paymentType;
     }
 
-    public Order() { }
+    public Order() {
+        listOfTires = new ArrayList<>();
+        listOfServices = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
