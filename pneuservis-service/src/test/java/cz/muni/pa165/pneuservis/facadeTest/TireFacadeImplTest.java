@@ -19,15 +19,20 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  *
@@ -66,6 +71,7 @@ public class TireFacadeImplTest extends AbstractTestNGSpringContextTests {
         tireDto1 = new TireDTO();
         tireDto2 = new TireDTO();
 
+        tire1.setId(1L);
         tire1.setCatalogNumber(12);
         tire1.setDescription("none");
         tire1.setDiameter(17);
@@ -128,6 +134,23 @@ public class TireFacadeImplTest extends AbstractTestNGSpringContextTests {
 
         //findAll
         when(tireService.findAll()).thenReturn(Arrays.asList(tire1, tire2));
+
+    }
+
+    @Test
+    public void createTire() {
+
+        tireFacade.create(tireDto1);
+        verify(tireService).create(any(Tire.class));
+
+    }
+
+    @Test
+    public void findById() {
+
+        TireDTO tire = tireFacade.findById(tire1.getId());
+        assertNotNull(tire);
+        assertEquals(tire1.getId(), tire.getId());
 
     }
 
