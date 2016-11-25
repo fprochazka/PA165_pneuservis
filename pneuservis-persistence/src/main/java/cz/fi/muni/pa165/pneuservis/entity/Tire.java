@@ -164,7 +164,7 @@ public class Tire {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Tire)) {
             return false;
         }
         final Tire other = (Tire) obj;
