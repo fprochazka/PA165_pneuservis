@@ -11,8 +11,17 @@ import java.util.List;
  * Created by vit.holasek on 23.11.2016.
  */
 public interface OrderFacade {
+
+    /**
+     * Create new order
+     * @param order Order
+     * @return Order with generated ID
+     */
     OrderDTO create(CreateOrderDTO order);
 
+    /**
+     * @param order
+     */
     void update(UpdateOrderDTO order);
 
     void delete(OrderDTO order);

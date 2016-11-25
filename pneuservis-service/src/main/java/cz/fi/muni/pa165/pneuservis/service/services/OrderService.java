@@ -9,17 +9,17 @@ import java.util.List;
  * Created by vit.holasek on 23.11.2016.
  */
 public interface OrderService {
-    Order create(Order order) throws PneuservisPortalDataAccessException;
+    Order create(Order order);
 
-    void update(Order order) throws PneuservisPortalDataAccessException;
+    void update(Order order);
 
-    void delete(Order order) throws PneuservisPortalDataAccessException;
+    void delete(Order order);
 
-    Order findOrderById(Long orderId) throws PneuservisPortalDataAccessException;
+    Order findOrderById(Long orderId);
 
-    List<Order> findClientOrders(Long clientId) throws PneuservisPortalDataAccessException;
+    List<Order> findClientOrders(Long clientId);
 
-    List<Order> findAllOrders() throws PneuservisPortalDataAccessException;
+    List<Order> findAllOrders();
 
-    OrderBilling getOrderBilling(Long orderId) throws PneuservisPortalDataAccessException;
+    OrderBilling getOrderBilling(Long orderId);
 }

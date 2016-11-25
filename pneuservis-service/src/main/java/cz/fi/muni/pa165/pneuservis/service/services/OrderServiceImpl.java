@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private int vat = 21;
 
     @Override
-    public Order create(Order order) throws PneuservisPortalDataAccessException {
+    public Order create(Order order) {
         if (order == null) throw new IllegalArgumentException("Order is null.");
         order.setShipped(false);
         order.setPaymentConfirmed(false);
@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void update(Order order) throws PneuservisPortalDataAccessException {
+    public void update(Order order) {
         if (order == null) throw new IllegalArgumentException("Order is null.");
         try {
             orderDao.update(order);
@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(Order order) throws PneuservisPortalDataAccessException {
+    public void delete(Order order) {
         if (order == null) throw new IllegalArgumentException("Order is null.");
         try {
             orderDao.delete(order);
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findOrderById(Long orderId) throws PneuservisPortalDataAccessException {
+    public Order findOrderById(Long orderId) {
         if (orderId == null) throw new IllegalArgumentException("OrderId is null.");
         try {
             return orderDao.findById(orderId);
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findClientOrders(Long clientId) throws PneuservisPortalDataAccessException {
+    public List<Order> findClientOrders(Long clientId) {
         if (clientId == null) throw new IllegalArgumentException("ClientId is null.");
         try {
             return orderDao.findByClientId(clientId);
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrders() throws PneuservisPortalDataAccessException {
+    public List<Order> findAllOrders() {
         try {
             return orderDao.findAll();
         } catch (Throwable e) {
@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderBilling getOrderBilling(Long orderId) throws PneuservisPortalDataAccessException {
+    public OrderBilling getOrderBilling(Long orderId) {
         if (orderId == null) throw new IllegalArgumentException("OrderId is null.");
         try {
             Order order = orderDao.findById(orderId);
