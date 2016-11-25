@@ -9,7 +9,7 @@ import java.util.Objects;
 public class BillingItemDTO {
     private String description;
 
-    private Integer VAT;
+    private int VAT;
 
     private BigDecimal priceWithVAT;
 
@@ -32,11 +32,11 @@ public class BillingItemDTO {
         this.description = description;
     }
 
-    public Integer getVAT() {
+    public int getVAT() {
         return VAT;
     }
 
-    public void setVAT(Integer VAT) {
+    public void setVAT(int VAT) {
         this.VAT = VAT;
     }
 

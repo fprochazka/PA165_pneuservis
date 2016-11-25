@@ -32,7 +32,7 @@ public class UpdateOrderDTO {
         this.listOfTires = listOfTires;
         this.note = note;
         this.paymentType = paymentType;
-        paymentConfirmed = paymentConfirmed;
+        this.paymentConfirmed = paymentConfirmed;
         this.shipped = shipped;
     }
 

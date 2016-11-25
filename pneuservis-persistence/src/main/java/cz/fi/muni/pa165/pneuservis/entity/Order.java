@@ -53,7 +53,7 @@ public class Order {
 
     private PaymentType paymentType;
 
-    public Order(Long clientId, String note, List<Service> listOfServices, List<Tire> listOfTires, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
+    public Order(Long clientId, List<Service> listOfServices, List<Tire> listOfTires, String note, boolean paymentConfirmed, boolean shipped, PaymentType paymentType) {
         this.clientId = clientId;
         this.listOfServices = listOfServices;
         this.listOfTires = listOfTires;
@@ -67,6 +67,10 @@ public class Order {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getClientId() {
