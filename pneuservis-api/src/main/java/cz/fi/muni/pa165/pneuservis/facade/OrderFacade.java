@@ -39,7 +39,7 @@ public interface OrderFacade {
     OrderDTO findOrderById(Long orderId);
 
     /**
-     * Find orders that belongs to the client with given ID
+     * Find orders related to the client with given ID
      * @param clientId Client ID
      * @return List of orders
      */
