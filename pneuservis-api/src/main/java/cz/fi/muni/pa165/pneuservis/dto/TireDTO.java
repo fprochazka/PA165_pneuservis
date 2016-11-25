@@ -26,6 +26,12 @@ public class TireDTO {
         this.id = id;
     }
 
+    private String description;
+
+    private String typeOfCar;
+
+    private BigDecimal price;
+
     private TireType type;
 
     private int catalogNumber;
@@ -49,6 +55,30 @@ public class TireDTO {
 
     public TireDTO() {
 
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTypeOfCar() {
+        return typeOfCar;
+    }
+
+    public void setTypeOfCar(String typeOfCar) {
+        this.typeOfCar = typeOfCar;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public TireType getType() {
