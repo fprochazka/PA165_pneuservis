@@ -9,7 +9,6 @@ import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
-import cz.fi.muni.pa165.pneuservis.service.services.BillingItem;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderBilling;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderService;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderServiceImpl;
@@ -19,19 +18,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import static org.mockito.Matchers.any;
-import org.mockito.Mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import org.mockito.MockitoAnnotations;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by vit.holasek on 25.11.2016.
@@ -53,13 +48,10 @@ public class OrderServiceImplTest {
     private List<Order> allOrders;
     private List<Order> clientOrders;
 
-    @BeforeClass
-    public void setup() throws ServiceException {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @BeforeMethod
-    public void prepareTest() {
+    public void prepareTest() throws ServiceException {
+        MockitoAnnotations.initMocks(this);
+
         service1 = new Service();
         service1.setId(1L);
         service1.setTypeOfCar("Audi");
@@ -128,6 +120,21 @@ public class OrderServiceImplTest {
         when(orderDAO.findAll()).thenReturn(allOrders);
         when(orderDAO.findByClientId(1L)).thenReturn(clientOrders);
         when(orderDAO.findByClientId(3L)).thenReturn(new ArrayList<>());
+        doAnswer(invoke -> {
+            Order order = invoke.getArgumentAt(0, Order.class);
+            if (order.getId() == null) throw new IllegalArgumentException();
+            return order;
+        }).when(orderDAO).delete(null);
+        doAnswer(invoke -> {
+            Order order = invoke.getArgumentAt(0, Order.class);
+            if (order.getClientId() == null) throw new IllegalArgumentException();
+            return order;
+        }).when(orderDAO).create(any(Order.class));
+        doAnswer(invoke -> {
+            Order order = invoke.getArgumentAt(0, Order.class);
+            if (order.getClientId() == null) throw new IllegalArgumentException();
+            return order;
+        }).when(orderDAO).update(any(Order.class));
     }
 
     @Test
@@ -174,5 +181,43 @@ public class OrderServiceImplTest {
     @Test
     public void getOrderBillingTestInvalidId() {
         Assert.assertEquals(orderService.getOrderBilling(3L), null);
+    }
+
+    @Test
+    public void createTest() {
+        orderService.create(order1);
+        verify(orderDAO).create(order1);
+    }
+
+    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    public void createTestInvalidOrder() {
+        orderService.create(invalidOrder);
+    }
+
+    @Test
+    public void updateTest() {
+        orderService.update(order1);
+        verify(orderDAO).update(order1);
+    }
+
+    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    public void updateTestInvalidOrder() {
+        orderService.update(invalidOrder);
+    }
+
+    @Test
+    public void deleteTest() {
+        orderService.delete(order1);
+        verify(orderDAO).delete(order1);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteTestNullOrder() {
+        orderService.delete(null);
+    }
+
+    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    public void deleteTestInvalidOrder() {
+        orderService.update(new Order());
     }
 }

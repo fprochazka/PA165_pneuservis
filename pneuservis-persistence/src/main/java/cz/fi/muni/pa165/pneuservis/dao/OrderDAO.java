@@ -20,7 +20,7 @@ public interface OrderDAO {
      * @param order The order to be stored
      * @throws IllegalArgumentException if some arguments are not set
      */
-    public void create(Order order) throws IllegalArgumentException;
+    void create(Order order) throws IllegalArgumentException;
 
     /**
      * Updates the order in the DB.
@@ -28,14 +28,14 @@ public interface OrderDAO {
      * @param order The order to be updated
      * @throws IllegalArgumentException if some arguments are not set
      */
-    public void update(Order order);
+    void update(Order order);
 
     /**
      * Deletes the order from the DB.
      *
      * @param order The order to be deleted
      */
-    public void delete(Order order);
+    void delete(Order order);
 
     /**
      * Finds a order by its unique ID
@@ -43,7 +43,7 @@ public interface OrderDAO {
      * @param id The orders ID
      * @return Found order, null if not found
      */
-    public Order findById(long id);
+    Order findById(long id);
 
     /**
      * Finds all order by its client ID
@@ -51,12 +51,12 @@ public interface OrderDAO {
      * @param clientId the ID of a client assignet to the order
      * @return list of found orders
      */
-    public List<Order> findByClientId(long clientId);
+    List<Order> findByClientId(long clientId);
 
     /**
      * Finds all orders stored in the DB
      *
      * @return List of the found orders
      */
-    public List<Order> findAll();
+    List<Order> findAll();
 }

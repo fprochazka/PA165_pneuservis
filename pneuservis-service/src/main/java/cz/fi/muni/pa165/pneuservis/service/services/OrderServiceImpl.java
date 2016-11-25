@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     public void update(Order order) throws PneuservisPortalDataAccessException {
         if (order == null) throw new IllegalArgumentException("Order is null.");
         try {
-            orderDao.create(order);
+            orderDao.update(order);
         } catch (Throwable e) {
             throw new PneuservisPortalDataAccessException("Cannot update order", e);
         }
