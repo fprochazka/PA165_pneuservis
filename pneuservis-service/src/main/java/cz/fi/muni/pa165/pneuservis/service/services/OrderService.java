@@ -15,13 +15,13 @@ public interface OrderService {
 
     void delete(Order order) throws PneuservisPortalDataAccessException;
 
-    Order findOrderById(Long orderId);
+    Order findOrderById(Long orderId) throws PneuservisPortalDataAccessException;
 
-    List<Order> findUserOrders(Long userId);
+    List<Order> findClientOrders(Long clientId) throws PneuservisPortalDataAccessException;
 
-    List<Order> findAllOrders();
+    List<Order> findAllOrders() throws PneuservisPortalDataAccessException;
 
-    OrderBilling getOrderBilling(Long orderId);
+    OrderBilling getOrderBilling(Long orderId) throws PneuservisPortalDataAccessException;
 
-    void confirmPayment(Long orderId);
+    void confirmPayment(Long orderId) throws PneuservisPortalDataAccessException;
 }

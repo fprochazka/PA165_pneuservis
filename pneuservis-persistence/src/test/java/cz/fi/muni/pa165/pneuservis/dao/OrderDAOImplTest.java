@@ -67,11 +67,13 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         tire1.setType(TireType.SUMMER);
         tire1.setDiameter(255);
         tire1.setPrice(new BigDecimal("100.0"));
+        tire1.setTypeOfCar("Nákladní");
 
         service1 = new Service();
         service1.setDuration(50);
         service1.setNameOfService("Vymena pneu");
         service1.setPrice(new BigDecimal("100.0"));
+        service1.setTypeOfCar("Osobní");
 
         tires.add(tire1);
         services.add(service1);
@@ -85,8 +87,8 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         order1.setShipped(false);
 
         order2.setClientId(2L);
-        order1.setListOfServices(services);
-        order1.setListOfTires(tires);
+        order2.setListOfServices(services);
+        order2.setListOfTires(tires);
         order2.setNote("Thank you");
         order1.setPaymentConfirmed(false);
         order1.setPaymentType(PaymentType.TRANSFER);
@@ -99,6 +101,14 @@ public class OrderDAOImplTest extends AbstractTestNGSpringContextTests {
         Order o1 = orderDao.findById(order1.getId());
         Assert.assertEquals(o1, order1);
         assertOrderEquals(o1, order1);
+    }
+
+    @Test
+    public void findByClientIdTest() {
+        orderDao.create(order1);
+        List<Order> orders = orderDao.findByClientId(1L);
+        Assert.assertEquals(orders.size(), 1);
+        Assert.assertEquals(order1, orders.get(0));
     }
 
     @Test

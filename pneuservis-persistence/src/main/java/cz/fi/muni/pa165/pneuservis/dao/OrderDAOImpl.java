@@ -54,8 +54,9 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order findByClientId(long clientId) {
-        return em.find(Order.class, clientId);
+    public List<Order> findByClientId(long clientId) {
+        return em.createQuery("SELECT order FROM Order order WHERE order.clientId = :clientId", Order.class)
+                .setParameter("clientId", clientId).getResultList();
     }
 
     @Override
