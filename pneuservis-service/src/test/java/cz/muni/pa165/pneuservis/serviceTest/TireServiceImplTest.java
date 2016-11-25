@@ -14,8 +14,11 @@ import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessE
 import cz.fi.muni.pa165.pneuservis.service.services.TireService;
 import cz.fi.muni.pa165.pneuservis.service.services.TireServiceImpl;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -70,7 +73,7 @@ public class TireServiceImplTest extends AbstractTestNGSpringContextTests {
         tire2.setManufacturer(TireManufacturer.FALKEN);
         tire2.setPrice(BigDecimal.TEN);
         tire2.setProfile(50);
-        tire2.setTireSize(205);
+        tire2.setTireSize(255);
         tire2.setType(TireType.WINTER);
         tire2.setTypeOfCar("truck");
     }
@@ -96,4 +99,37 @@ public class TireServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(tireService.findById(0L), null);
     }
 
+    @Test
+    public void updateTireTest() {
+        tireService.update(tire1);
+        verify(tireDAO).update(any(Tire.class));
+    }
+
+    @Test
+    public void findTireByWrongCatalogNumber() {
+        when(tireDAO.findByCatalogNumber(0000000)).thenReturn(null);
+        List<Tire> tires = tireService.findByCatalogNumber(0000000);
+        Assert.assertEquals(null, tires);
+    }
+
+    @Test
+    public void findAllTires() {
+        when(tireDAO.findAll()).thenReturn(Arrays.asList(tire1, tire2));
+        final List<Tire> tires = tireService.findAll();
+        Assert.assertEquals(2, tires.size());
+    }
+
+    @Test
+    public void findByManufacturer() {
+        when(tireDAO.findByManufacturer(TireManufacturer.HANKOOK)).thenReturn(Arrays.asList(tire1));
+        final List<Tire> tires = tireService.findByManufacturer(TireManufacturer.HANKOOK);
+        Assert.assertEquals(1, tires.size());
+    }
+
+    @Test
+    public void findBySize() {
+        when(tireDAO.findBySize(255)).thenReturn(Arrays.asList(tire1, tire2));
+        final List<Tire> tires = tireService.findBySize(255);
+        Assert.assertEquals(2, tires.size());
+    }
 }
