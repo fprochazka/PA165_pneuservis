@@ -119,16 +119,4 @@ public class OrderServiceImpl implements OrderService {
             throw new PneuservisPortalDataAccessException("Cannot create order billing.", e);
         }
     }
-
-    @Override
-    public void confirmPayment(Long orderId) throws PneuservisPortalDataAccessException {
-        if (orderId == null) throw new IllegalArgumentException("OrderId is null.");
-        try {
-            Order order = orderDao.findById(orderId);
-            order.setPaymentConfirmed(true);
-            orderDao.update(order);
-        } catch (Throwable e) {
-            throw new PneuservisPortalDataAccessException("Cannot update order.", e);
-        }
-    }
 }

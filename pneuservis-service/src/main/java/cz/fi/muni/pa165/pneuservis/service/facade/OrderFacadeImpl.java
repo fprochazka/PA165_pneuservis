@@ -7,12 +7,16 @@ import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderBilling;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by vit.holasek on 23.11.2016.
  */
+@Service
+@Transactional
 public class OrderFacadeImpl implements OrderFacade {
 
     @Autowired
@@ -64,10 +68,5 @@ public class OrderFacadeImpl implements OrderFacade {
         OrderBillingDTO orderBillingDTO = beanMappingService.mapTo(billing, OrderBillingDTO.class);
         orderBillingDTO.setOrderId(billing.getOrder().getId());
         return orderBillingDTO;
-    }
-
-    @Override
-    public void confirmPayment(Long orderId) {
-        orderService.confirmPayment(orderId);
     }
 }

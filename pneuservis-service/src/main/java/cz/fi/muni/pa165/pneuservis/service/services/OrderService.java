@@ -22,6 +22,4 @@ public interface OrderService {
     List<Order> findAllOrders() throws PneuservisPortalDataAccessException;
 
     OrderBilling getOrderBilling(Long orderId) throws PneuservisPortalDataAccessException;
-
-    void confirmPayment(Long orderId) throws PneuservisPortalDataAccessException;
 }

@@ -24,6 +24,4 @@ public interface OrderFacade {
     List<OrderDTO> findAllOrders();
 
     OrderBillingDTO getOrderBilling(Long orderId);
-
-    void confirmPayment(Long orderId);
 }

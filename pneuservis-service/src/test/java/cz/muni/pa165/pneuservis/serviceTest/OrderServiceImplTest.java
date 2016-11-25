@@ -13,11 +13,11 @@ import cz.fi.muni.pa165.pneuservis.service.services.OrderBilling;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderService;
 import cz.fi.muni.pa165.pneuservis.service.services.OrderServiceImpl;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
  * Created by vit.holasek on 25.11.2016.
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class OrderServiceImplTest {
+public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
     @Mock
     private OrderDAO orderDAO;
 
@@ -48,10 +48,13 @@ public class OrderServiceImplTest {
     private List<Order> allOrders;
     private List<Order> clientOrders;
 
+    @BeforeClass
+    public void setup() throws ServiceException {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @BeforeMethod
     public void prepareTest() throws ServiceException {
-        MockitoAnnotations.initMocks(this);
-
         service1 = new Service();
         service1.setId(1L);
         service1.setTypeOfCar("Audi");
