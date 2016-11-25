@@ -30,7 +30,7 @@ public class PersonFacadeImpl implements PersonFacade{
     private BeanMappingService beanMappingService;
 
     @Override
-    public Long create(PersonDTO personDto, String password) throws IllegalArgumentException {
+    public Long create(PersonDTO personDto, String password) {
         Person personEntity = beanMappingService.mapTo(personDto, Person.class);
         return personService.create(personEntity, password);
     }

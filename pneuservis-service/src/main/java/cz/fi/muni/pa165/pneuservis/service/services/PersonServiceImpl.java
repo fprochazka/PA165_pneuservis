@@ -34,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
     
 
     @Override
-    public Long create(Person person, String password) throws IllegalArgumentException {
+    public Long create(Person person, String password) {
         try{
             person.setPasswordHash(createHash(password));
             return personDao.create(person);

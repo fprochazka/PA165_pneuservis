@@ -57,7 +57,10 @@ public class ServiceDAOImpl implements ServiceDAO {
     }
 
     @Override
-    public Service findById(Long id) {
+    public Service findById(Long id) throws IllegalArgumentException {
+        if (id == null){
+            throw new IllegalArgumentException("id is null");
+        }
         return entityManager.find(Service.class, id);
     }
 

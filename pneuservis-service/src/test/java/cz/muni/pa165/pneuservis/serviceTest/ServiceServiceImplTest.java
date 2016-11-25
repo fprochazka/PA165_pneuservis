@@ -74,7 +74,7 @@ public class ServiceServiceImplTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createPersonTest() {
+    public void createServiceTest() {
         serviceService.create(service1);
         verify(serviceDAO).create(service1);
     }

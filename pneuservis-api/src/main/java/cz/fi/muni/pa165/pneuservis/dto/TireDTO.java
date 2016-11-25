@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej ï¿½ï¿½pka
  */
 public class TireDTO {
 
@@ -51,6 +51,9 @@ public class TireDTO {
         this.tireSize = tireSize;
         this.diameter = diameter;
         this.manufacturer = manufacturer;
+        this.price = price;
+        this.description = description;
+        this.typeOfCar = typeOfVehicle;
     }
 
     public TireDTO() {

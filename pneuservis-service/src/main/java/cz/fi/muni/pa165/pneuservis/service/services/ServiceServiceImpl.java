@@ -22,7 +22,7 @@ public class ServiceServiceImpl implements ServiceService {
     private ServiceDAO serviceDAO;
 
     @Override
-    public Service create(Service service) throws IllegalArgumentException {
+    public Service create(Service service) {
         try {
             return serviceDAO.create(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -31,7 +31,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Service delete(Service service) throws IllegalArgumentException {
+    public Service delete(Service service) {
         try {
             return serviceDAO.delete(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){
@@ -40,7 +40,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public void update(Service service) throws IllegalArgumentException {
+    public void update(Service service) {
         try {
             serviceDAO.update(service);
         } catch (ConstraintViolationException | IllegalArgumentException | NullPointerException | PersistenceException e){

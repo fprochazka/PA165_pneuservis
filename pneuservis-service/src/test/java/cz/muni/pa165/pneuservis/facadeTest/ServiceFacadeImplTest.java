@@ -1,9 +1,13 @@
 package cz.muni.pa165.pneuservis.facadeTest;
 
+import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
+import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.facade.ServiceFacade;
 import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
+import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.service.facade.ServiceFacadeImpl;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingServiceImpl;
@@ -18,12 +22,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 /**
  * @author Ivan Moscovic on 24.11.2016.
@@ -44,8 +54,6 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     Service service1;
     Service service2;
     ServiceDTO serviceDTO1;
-    ServiceDTO ServiceDTO2;
-    List<ServiceDTO> serviceDTOs;
 
     @BeforeClass
     public void setup() throws ServiceException {
@@ -58,26 +66,97 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
         service1 = new Service();
         service2 = new Service();
 
+        service1.setId(1L);
         service1.setDuration(5);
         service1.setNameOfService("Change of gear");
         service1.setOwnParts(false);
-        //service1.setTypeOfVehicle("Honda");
-        //service1.setPrice(BigDecimal.valueOf(1400));
+        service1.setTypeOfCar("Honda");
+        service1.setPrice(BigDecimal.valueOf(1400));
 
-        service2.setDuration(2);
-        service2.setNameOfService("Change of oil");
+        service2.setId(2L);
+        service2.setDuration(-2);
+        service2.setNameOfService(null);
         service2.setOwnParts(true);
-        //service2.setTypeOfVehicle("Subaru");
-        //service2.setPrice(BigDecimal.valueOf(100));
+        service2.setTypeOfCar("Subaru");
+        service2.setPrice(BigDecimal.valueOf(-100));
 
         serviceDTO1 = new ServiceDTO();
+        serviceDTO1.setId(1L);
         serviceDTO1.setDuration(5);
         serviceDTO1.setNameOfService("Change of gear");
         serviceDTO1.setOwnParts(false);
-        //serviceDTO1.setTypeOfVehicle("Honda");
-        //serviceDTO1.setPrice(BigDecimal.valueOf(1400));
+        serviceDTO1.setTypeOfCar("Honda");
+        serviceDTO1.setPrice(BigDecimal.valueOf(1400));
+    }
+
+    @Test
+    public void createService() {
+        when(serviceService.create(service1)).thenReturn(service1);
+        serviceFacade.create(serviceDTO1);
+        verify(serviceService).create(any(Service.class));
+    }
+
+    /*@Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    public void createIllegalService() {
+        when(serviceService.create(service2)).thenThrow(PneuservisPortalDataAccessException.class);
+        serviceFacade.create(beanMappingService.mapTo(service2, ServiceDTO.class));
+        verify(serviceService).create(any(Service.class));
+    }*/
+
+    @Test
+    public void findById() {
+        when(serviceService.findById(1L)).thenReturn(service1);
+        ServiceDTO serviceDTO = serviceFacade.findById(service1.getId());
+        assertNotNull(serviceDTO);
+        assertEquals(serviceDTO.getId(), serviceDTO1.getId());
+    }
+
+    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    public void findByWrongId(){
+        when(serviceService.findById(8L)).thenThrow(PneuservisPortalDataAccessException.class);
+        ServiceDTO serviceDTO = serviceFacade.findById(8L);
+        assertNull(serviceDTO);
+    }
+
+    @Test
+    public void deleteServiceTest() {
+        when(serviceService.delete(service1)).thenReturn(service1);
+        serviceFacade.delete(serviceDTO1);
+        verify(serviceService).delete(service1);
+    }
+
+    @Test
+    public void getAllServiceTest() {
+        when(serviceService.findAllServices()).thenReturn(Arrays.asList(service1, service2));
+        List<ServiceDTO> services = serviceFacade.findAllServices();
+        verify(serviceService).findAllServices();
+        assertNotNull(services);
+        assertEquals(services.get(0).getId(), service1.getId());
+        assertEquals(services.get(1).getId(), service2.getId());
+
+    }
+
+    @Test
+    public void findByNameTest() {
+        when(serviceService.findByName(service1.getNameOfService())).thenReturn(Arrays.asList(service1));
+        List<ServiceDTO> services = serviceFacade.findByName(serviceDTO1.getNameOfService());
+        verify(serviceService).findByName(any(String.class));
+        assertNotNull(services);
+        assertEquals(services.get(0).getNameOfService(), service1.getNameOfService());
+    }
+
+    @Test void findNonExistingNameTest(){
+        when(serviceService.findByName("neexistujem")).thenReturn(null);
+        List<ServiceDTO> services = serviceFacade.findByName("neexistujem");
+        verify(serviceService).findByName(any(String.class));
+        assertNull(services);
+    }
 
 
+    @Test
+    public void updateTest() {
+        serviceFacade.update(serviceDTO1);
+        verify(serviceService).update(any(Service.class));
     }
 
 
