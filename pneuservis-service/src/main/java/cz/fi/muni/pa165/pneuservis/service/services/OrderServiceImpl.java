@@ -1,11 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.service.services;
 
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
-import cz.fi.muni.pa165.pneuservis.dao.ServiceDAO;
-import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
-import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
                     .map(BillingItem::getPriceWithVAT)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            return new OrderBilling(order.getId(), sum, sumWithVAT, items);
+            return new OrderBilling(order.getId(), sum, sumWithVAT, items, order);
 
         } catch (Throwable e) {
             throw new PneuservisPortalDataAccessException("Cannot create order billing.", e);

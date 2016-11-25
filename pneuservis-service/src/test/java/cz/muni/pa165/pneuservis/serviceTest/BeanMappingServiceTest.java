@@ -1,7 +1,6 @@
 package cz.muni.pa165.pneuservis.serviceTest;
 
-import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
-import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
+import cz.fi.muni.pa165.pneuservis.dto.*;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
@@ -33,6 +32,16 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
 
     private TireDTO tireDTO;
 
+    private OrderDTO orderDTO;
+
+    private CreateOrderDTO createOrderDTO;
+
+    private UpdateOrderDTO updateOrderDTO;
+
+    private OrderBillingDTO orderBillingDTO;
+
+    private BillingItemDTO billingItemDTO;
+
     @BeforeClass
     public void setUp() {
 
@@ -55,6 +64,8 @@ public class BeanMappingServiceTest extends AbstractTestNGSpringContextTests {
         tireDTO.setManufacturer(TireManufacturer.BARUM);
         tireDTO.setCatalogNumber(12223);
         tireDTO.setTireSize(255);
+
+
     }
 
     @Test

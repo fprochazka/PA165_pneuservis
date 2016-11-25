@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.pneuservis.service.services;
 
+import cz.fi.muni.pa165.pneuservis.entity.Order;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -8,30 +10,22 @@ import java.util.Objects;
  * Created by vit.holasek on 24.11.2016.
  */
 public class OrderBilling {
-    private Long Id;
-
     private BigDecimal price;
 
     private BigDecimal priceWithVAT;
 
     private List<BillingItem> billingItems;
 
-    public OrderBilling(Long id, BigDecimal price, BigDecimal priceWithVAT, List<BillingItem> billingItems) {
-        Id = id;
+    private Order order;
+
+    public OrderBilling(Long id, BigDecimal price, BigDecimal priceWithVAT, List<BillingItem> billingItems, Order order) {
         this.price = price;
         this.priceWithVAT = priceWithVAT;
         this.billingItems = billingItems;
+        this.order = order;
     }
 
     public OrderBilling() { }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
 
     public BigDecimal getPrice() {
         return price;
@@ -62,14 +56,21 @@ public class OrderBilling {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderBilling that = (OrderBilling) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getPrice(), that.getPrice()) &&
+        return Objects.equals(getPrice(), that.getPrice()) &&
                 Objects.equals(getPriceWithVAT(), that.getPriceWithVAT()) &&
                 Objects.equals(getBillingItems(), that.getBillingItems());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPrice(), getPriceWithVAT(), getBillingItems());
+        return Objects.hash(getPrice(), getPriceWithVAT(), getBillingItems());
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

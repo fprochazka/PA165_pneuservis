@@ -61,7 +61,9 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public OrderBillingDTO getOrderBilling(Long orderId) {
         OrderBilling billing = orderService.getOrderBilling(orderId);
-        return beanMappingService.mapTo(billing, OrderBillingDTO.class);
+        OrderBillingDTO orderBillingDTO = beanMappingService.mapTo(billing, OrderBillingDTO.class);
+        orderBillingDTO.setOrderId(billing.getOrder().getId());
+        return orderBillingDTO;
     }
 
     @Override
