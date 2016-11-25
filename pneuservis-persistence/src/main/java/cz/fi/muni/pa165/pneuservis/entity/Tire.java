@@ -118,14 +118,6 @@ public class Tire {
         this.catalogNumber = catalogNumber;
     }
 
-    public int getSize() {
-        return tireSize;
-    }
-
-    public void setSize(int size) {
-        this.tireSize = size;
-    }
-
     public int getProfile() {
         return profile;
     }

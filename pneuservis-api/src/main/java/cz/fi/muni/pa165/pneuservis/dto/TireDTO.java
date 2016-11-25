@@ -47,6 +47,10 @@ public class TireDTO {
         this.manufacturer = manufacturer;
     }
 
+    public TireDTO() {
+
+    }
+
     public TireType getType() {
         return type;
     }
