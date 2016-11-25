@@ -11,12 +11,14 @@ import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
 import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
 import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
+import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
 import cz.fi.muni.pa165.pneuservis.service.facade.TireFacadeImpl;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingServiceImpl;
 import cz.fi.muni.pa165.pneuservis.service.services.TireService;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import static org.mockito.Matchers.any;
@@ -28,11 +30,14 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import sun.java2d.loops.SurfaceType;
 
 /**
  *
@@ -114,44 +119,67 @@ public class TireFacadeImplTest extends AbstractTestNGSpringContextTests {
 
     }
 
-    @BeforeMethod
-    public void initMocksBehaviour() {
-
-        // findById
-        when(tireService.findById(0l)).thenReturn(null);
-        when(tireService.findById(1l)).thenReturn(tire1);
-        when(tireService.findById(2l)).thenReturn(tire2);
-
-        //create
-        when(tireService.create(tire1)).thenReturn(tire1);
-
-        //findByCatalogNumber
-        when(tireService.findByCatalogNumber(12)).thenReturn(Arrays.asList(tire1));
-        when(tireService.findByCatalogNumber(13)).thenReturn(Arrays.asList(tire2));
-
-        //find by size
-        when(tireService.findBySize(255)).thenReturn(Arrays.asList(tire1));
-
-        //findAll
-        when(tireService.findAll()).thenReturn(Arrays.asList(tire1, tire2));
-
-    }
-
     @Test
-    public void createTire() {
-
+    public void createService() {
+        when(tireService.create(tire1)).thenReturn(tire1);
         tireFacade.create(tireDto1);
         verify(tireService).create(any(Tire.class));
-
     }
 
     @Test
     public void findById() {
-
-        TireDTO tire = tireFacade.findById(tire1.getId());
-        assertNotNull(tire);
-        assertEquals(tire1.getId(), tire.getId());
-
+        when(tireService.findById(1L)).thenReturn(tire1);
+        TireDTO tireDTO = tireFacade.findById(tire1.getId());
+        assertNotNull(tireDTO);
+        assertEquals(tireDTO.getId(), tireDTO.getId());
     }
 
+    @Test(expectedExceptions = PneuservisPortalDataAccessException.class)
+    @SuppressWarnings("unchecked")
+    public void findByWrongId() {
+        when(tireService.findById(4L)).thenThrow(PneuservisPortalDataAccessException.class);
+        TireDTO tireDTO = tireFacade.findById(4L);
+        assertNull(tireDTO);
+    }
+
+    @Test
+    public void deleteTest() {
+        tireFacade.delete(tireDto2);
+        verify(tireService).delete(tire2);
+    }
+
+    @Test
+    public void getAllServiceTest() {
+        when(tireService.findAll()).thenReturn(Arrays.asList(tire1, tire2));
+        List<TireDTO> tires = tireFacade.findAll();
+        verify(tireService).findAll();
+        assertNotNull(tires);
+        assertEquals(tires.get(0).getId(), tire1.getId());
+        assertEquals(tires.get(1).getId(), tire2.getId());
+    }
+
+    @Test
+    public void findByCatalogNumberTest() {
+        when(tireService.findByCatalogNumber(tire1.getCatalogNumber())).thenReturn(Arrays.asList(tire1));
+        List<TireDTO> tires = tireFacade.findByCatalogNumber(tire1.getCatalogNumber());
+        verify(tireService).findByCatalogNumber(any(Integer.class));
+        assertNotNull(tires);
+        assertEquals(tires.get(0).getCatalogNumber(), tire1.getCatalogNumber());
+    }
+
+    @Test
+    public void findByProfileTest() {
+        when(tireService.findByProfile(tire1.getProfile())).thenReturn(Arrays.asList(tire1, tire2));
+        List<TireDTO> tires = tireFacade.findByProfile(tire1.getProfile());
+        verify(tireService).findByProfile(tire1.getProfile());
+        assertNotNull(tires);
+        assertEquals(tires.get(0).getProfile(), tire1.getProfile());
+        assertEquals(tires.get(1).getProfile(), tire2.getProfile());
+    }
+
+    @Test
+    public void updateTest() {
+        tireFacade.update(tireDto2);
+        verify(tireService).update(any(Tire.class));
+    }
 }
