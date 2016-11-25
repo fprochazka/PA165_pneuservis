@@ -147,12 +147,7 @@ public class TireDTO {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (obj == null ||  !(obj instanceof TireDTO)) return false;
         final TireDTO other = (TireDTO) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;

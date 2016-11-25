@@ -59,7 +59,7 @@ public class BillingItemDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null ||  !(o instanceof BillingItemDTO)) return false;
         BillingItemDTO that = (BillingItemDTO) o;
         return Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getVAT(), that.getVAT()) &&

@@ -60,7 +60,7 @@ public class OrderBillingDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null ||  !(o instanceof OrderBillingDTO)) return false;
         OrderBillingDTO that = (OrderBillingDTO) o;
         return Objects.equals(getOrderId(), that.getOrderId()) &&
                 Objects.equals(getPriceWithVAT(), that.getPriceWithVAT()) &&

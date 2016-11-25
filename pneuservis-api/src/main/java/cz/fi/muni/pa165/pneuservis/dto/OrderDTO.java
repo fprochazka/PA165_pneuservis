@@ -82,7 +82,7 @@ public class OrderDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null ||  !(o instanceof OrderDTO)) return false;
         OrderDTO orderDTO = (OrderDTO) o;
         return isPaymentConfirmed() == orderDTO.isPaymentConfirmed() &&
                 isShipped() == orderDTO.isShipped() &&

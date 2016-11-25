@@ -76,7 +76,7 @@ public class CreateOrderDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null ||  !(o instanceof CreateOrderDTO)) return false;
         CreateOrderDTO that = (CreateOrderDTO) o;
         return Objects.equals(getClientId(), that.getClientId()) &&
                 Objects.equals(getNote(), that.getNote()) &&
