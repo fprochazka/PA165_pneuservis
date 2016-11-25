@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by vit.holasek on 23.11.2016.
+ * @author vit.holasek on 23.11.2016.
  */
 public class OrderBillingDTO {
     private Long orderId;

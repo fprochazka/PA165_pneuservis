@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Created by vit.holasek on 24.11.2016.
+ * @author vit.holasek on 24.11.2016.
  */
 public class BillingItemDTO {
     private String description;

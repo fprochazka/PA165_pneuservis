@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import java.util.Objects;
 
 /**
- * Created by vit.holasek on 23.11.2016.
+ * @author vit.holasek on 23.11.2016.
  */
 public class OrderDTO {
     private Long id;

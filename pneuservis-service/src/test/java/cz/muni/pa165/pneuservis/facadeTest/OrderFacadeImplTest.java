@@ -27,7 +27,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by vit.holasek on 25.11.2016.
+ * @author vit.holasek on 25.11.2016.
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {

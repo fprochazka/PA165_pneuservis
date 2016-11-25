@@ -8,7 +8,7 @@ import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
 import java.util.List;
 
 /**
- * Created by vit.holasek on 23.11.2016.
+ * @author vit.holasek on 23.11.2016.
  */
 public interface OrderFacade {
 
@@ -27,7 +27,7 @@ public interface OrderFacade {
 
     /**
      * Delete order.
-     * @param order
+     * @param order to be deleted
      */
     void delete(OrderDTO order);
 

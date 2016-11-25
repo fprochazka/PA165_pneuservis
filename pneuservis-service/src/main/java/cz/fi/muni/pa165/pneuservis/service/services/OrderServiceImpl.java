@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by vit.holasek on 24.11.2016.
+ * @author vit.holasek on 24.11.2016.
  */
 @org.springframework.stereotype.Service
 @Transactional

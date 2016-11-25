@@ -31,7 +31,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by vit.holasek on 25.11.2016.
+ * @author vit.holasek on 25.11.2016.
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {

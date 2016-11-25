@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by vit.holasek on 24.11.2016.
+ * @author vit.holasek on 24.11.2016.
  */
 public class UpdateOrderDTO {
     private Long id;
