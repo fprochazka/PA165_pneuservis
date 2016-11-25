@@ -51,7 +51,7 @@ public interface OrderDAO {
      * @param clientId the ID of a client assignet to the order
      * @return list of found orders
      */
-    public Order findByClientId(long clientId);
+    public List<Order> findByClientId(long clientId);
 
     /**
      * Finds all orders stored in the DB

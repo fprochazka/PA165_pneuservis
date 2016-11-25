@@ -52,7 +52,7 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
         tire1.setManufacturer(TireManufacturer.BARUM);
         tire1.setDiameter(17);
         tire1.setProfile(40);
-        tire1.setSize(255);
+        tire1.setTireSize(255);
         tire1.setType(TireType.SUMMER);
         tire1.setPrice(BigDecimal.valueOf(150));
         tire1.setTypeOfCar("Audi");
@@ -61,7 +61,7 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
         tire2.setManufacturer(TireManufacturer.HANKOOK);
         tire2.setDiameter(20);
         tire2.setProfile(45);
-        tire2.setSize(225);
+        tire2.setTireSize(225);
         tire2.setType(TireType.WINTER);
         tire2.setPrice(BigDecimal.valueOf(250));
         tire2.setTypeOfCar("BMW");
@@ -109,11 +109,11 @@ public class TireDAOImplTest extends AbstractTestNGSpringContextTests {
             Assert.assertEquals(tire.getManufacturer(), TireManufacturer.FALKEN);
         }
 
-        tire1.setSize(235);
+        tire1.setTireSize(235);
         tireDao.update(tire1);
-        List<Tire> tiresSizeResult = tireDao.findBySize(tire1.getSize());
+        List<Tire> tiresSizeResult = tireDao.findBySize(tire1.getTireSize());
         for (Tire tire : tiresSizeResult) {
-            Assert.assertEquals(tire.getSize(), 235);
+            Assert.assertEquals(tire.getTireSize(), 235);
         }
 
     }

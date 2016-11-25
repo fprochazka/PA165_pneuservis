@@ -1,8 +1,9 @@
 package cz.fi.muni.pa165.pneuservis.facade;
 
-import cz.fi.muni.pa165.pneuservis.dto.CreateUpdateOrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.CreateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderBillingDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
  * Created by vit.holasek on 23.11.2016.
  */
 public interface OrderFacade {
-    OrderDTO create(CreateUpdateOrderDTO order) throws IllegalArgumentException;
+    OrderDTO create(CreateOrderDTO order);
 
-    void update(CreateUpdateOrderDTO order) throws IllegalArgumentException;
+    void update(UpdateOrderDTO order);
 
-    void delete(Long orderId);
+    void delete(OrderDTO order);
 
     OrderDTO findOrderById(Long orderId);
 
@@ -23,4 +24,6 @@ public interface OrderFacade {
     List<OrderDTO> findAllOrders();
 
     OrderBillingDTO getOrderBilling(Long orderId);
+
+    void confirmPayment(Long orderId);
 }

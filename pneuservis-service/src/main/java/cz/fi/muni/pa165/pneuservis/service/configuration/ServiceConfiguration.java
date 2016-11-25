@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Import;
 import cz.fi.muni.pa165.pneuservis.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.pneuservis.dto.PersonDTO;
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
+import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
 import cz.fi.muni.pa165.pneuservis.entity.Person;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
+import cz.fi.muni.pa165.pneuservis.entity.Tire;
 import org.dozer.loader.api.BeanMappingBuilder;
 
 /**
@@ -35,6 +37,7 @@ public class ServiceConfiguration {
         protected void configure() {
             mapping(Person.class, PersonDTO.class);
             mapping(Service.class, ServiceDTO.class);
+            mapping(Tire.class, TireDTO.class);
         }
     }
 }
