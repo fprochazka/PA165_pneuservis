@@ -13,12 +13,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  *
  * @author Matej Sipka
  */
 @Repository
+@Transactional
 public class TireDAOImpl implements TireDAO {
 
     @PersistenceContext

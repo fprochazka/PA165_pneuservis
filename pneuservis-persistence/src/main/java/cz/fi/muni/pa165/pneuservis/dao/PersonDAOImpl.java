@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author Maros Staurovsky
  */
 @Repository
+@javax.transaction.Transactional
 public class PersonDAOImpl implements PersonDAO{
     
     @PersistenceContext

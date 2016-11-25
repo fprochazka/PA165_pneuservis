@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Repository;
  * @author Jaroslav Bonco
  */
 @Repository
+@Transactional
 public class OrderDAOImpl implements OrderDAO {
 
     @PersistenceContext
