@@ -13,21 +13,49 @@ public class CreateOrderDTO {
 
     private Long clientId;
 
-    private List<Long> listOfProducts;
+    private List<ServiceDTO> listOfServices;
+
+    private List<TireDTO> listOfTires;
 
     private String note;
 
     private PaymentType PaymentType;
 
-    public CreateOrderDTO(Long id, Long clientId, List<Long> listOfProducts, String note, PaymentType paymentType) {
+    public CreateOrderDTO(Long id, Long clientId, List<ServiceDTO> listOfServices, String note, PaymentType paymentType) {
         this.id = id;
         this.clientId = clientId;
-        this.listOfProducts = listOfProducts;
+        this.listOfServices = listOfServices;
         this.note = note;
         PaymentType = paymentType;
     }
 
-    public CreateOrderDTO() { }
+    public CreateOrderDTO(List<ServiceDTO> listOfServices) {
+        this.listOfServices = listOfServices;
+    }
+
+    public List<ServiceDTO> getListOfServices() {
+        return listOfServices;
+    }
+
+    public void setListOfServices(List<ServiceDTO> listOfServices) {
+        this.listOfServices = listOfServices;
+    }
+
+    public List<TireDTO> getListOfTires() {
+        return listOfTires;
+    }
+
+    public void setListOfTires(List<TireDTO> listOfTires) {
+        this.listOfTires = listOfTires;
+    }
+
+    public cz.fi.muni.pa165.pneuservis.enums.PaymentType getPaymentType() {
+        return PaymentType;
+    }
+
+    public void setPaymentType(cz.fi.muni.pa165.pneuservis.enums.PaymentType paymentType) {
+        PaymentType = paymentType;
+    }
 
     public Long getId() {
         return id;
@@ -45,14 +73,6 @@ public class CreateOrderDTO {
         this.clientId = clientId;
     }
 
-    public List<Long> getListOfProducts() {
-        return listOfProducts;
-    }
-
-    public void setListOfProducts(List<Long> listOfProducts) {
-        this.listOfProducts = listOfProducts;
-    }
-
     public String getNote() {
         return note;
     }
@@ -68,13 +88,12 @@ public class CreateOrderDTO {
         CreateOrderDTO that = (CreateOrderDTO) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getClientId(), that.getClientId()) &&
-                Objects.equals(getListOfProducts(), that.getListOfProducts()) &&
                 Objects.equals(getNote(), that.getNote()) &&
-                PaymentType == that.PaymentType;
+                getPaymentType() == that.getPaymentType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getClientId(), getListOfProducts(), getNote(), PaymentType);
+        return Objects.hash(getId(), getClientId(), getNote(), getPaymentType());
     }
 }

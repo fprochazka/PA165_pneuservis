@@ -142,14 +142,12 @@ public class Order {
                 isShipped() == order.isShipped() &&
                 Objects.equals(getId(), order.getId()) &&
                 Objects.equals(getClientId(), order.getClientId()) &&
-                Objects.equals(listOfServices, order.listOfServices) &&
-                Objects.equals(listOfTires, order.listOfTires) &&
                 Objects.equals(getNote(), order.getNote()) &&
                 getPaymentType() == order.getPaymentType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getClientId(), listOfServices, listOfTires, getNote(), isPaymentConfirmed(), isShipped(), getPaymentType());
+        return Objects.hash(getId(), getClientId(), getNote(), isPaymentConfirmed(), isShipped(), getPaymentType());
     }
 }

@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.pneuservis.service.facade;
 
-import cz.fi.muni.pa165.pneuservis.dto.CreateOrderDTO;
-import cz.fi.muni.pa165.pneuservis.dto.OrderBillingDTO;
-import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
-import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.*;
+import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
+import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
+import cz.fi.muni.pa165.pneuservis.service.services.OrderBilling;
+import cz.fi.muni.pa165.pneuservis.service.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -12,43 +14,58 @@ import java.util.List;
  * Created by vit.holasek on 23.11.2016.
  */
 public class OrderFacadeImpl implements OrderFacade {
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private BeanMappingService beanMappingService;
+
     @Override
     public OrderDTO create(CreateOrderDTO order) {
-        return null;
+        Order orderEntity = beanMappingService.mapTo(order, Order.class);
+        orderService.create(orderEntity);
+        return beanMappingService.mapTo(orderEntity, OrderDTO.class);
     }
 
     @Override
     public void update(UpdateOrderDTO order) {
-
+        Order orderEntity = beanMappingService.mapTo(order, Order.class);
+        orderService.update(orderEntity);
     }
 
     @Override
     public void delete(OrderDTO order) {
-
+        Order orderEntity = beanMappingService.mapTo(order, Order.class);
+        orderService.delete(orderEntity);
     }
 
     @Override
     public OrderDTO findOrderById(Long orderId) {
-        return null;
+        Order order = orderService.findOrderById(orderId);
+        return beanMappingService. mapTo(order, OrderDTO.class);
     }
 
     @Override
-    public List<OrderDTO> findUserOrders(Long userId) {
-        return null;
+    public List<OrderDTO> findUserOrders(Long clientId) {
+        List<Order> orders = orderService.findClientOrders(clientId);
+        return beanMappingService.mapTo(orders, OrderDTO.class);
     }
 
     @Override
     public List<OrderDTO> findAllOrders() {
-        return null;
+        List<Order> orders = orderService.findAllOrders();
+        return beanMappingService.mapTo(orders, OrderDTO.class);
     }
 
     @Override
     public OrderBillingDTO getOrderBilling(Long orderId) {
-        return null;
+        OrderBilling billing = orderService.getOrderBilling(orderId);
+        return beanMappingService.mapTo(billing, OrderBillingDTO.class);
     }
 
     @Override
     public void confirmPayment(Long orderId) {
-
+        orderService.confirmPayment(orderId);
     }
 }

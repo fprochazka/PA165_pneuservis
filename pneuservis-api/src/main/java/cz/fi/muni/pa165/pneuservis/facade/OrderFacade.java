@@ -19,7 +19,7 @@ public interface OrderFacade {
 
     OrderDTO findOrderById(Long orderId);
 
-    List<OrderDTO> findUserOrders(Long userId);
+    List<OrderDTO>findUserOrders(Long clientId);
 
     List<OrderDTO> findAllOrders();
 
