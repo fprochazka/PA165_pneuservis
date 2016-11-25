@@ -86,15 +86,15 @@ public class UpdateOrderDTO {
         this.paymentType = paymentType;
     }
 
-    public boolean isPaymentConfirmed() {
+    public boolean getPaymentConfirmed() {
         return paymentConfirmed;
     }
 
     public void setPaymentConfirmed(boolean paymentConfirmed) {
-        paymentConfirmed = paymentConfirmed;
+        this.paymentConfirmed = paymentConfirmed;
     }
 
-    public boolean isShipped() {
+    public boolean getShipped() {
         return shipped;
     }
 
@@ -107,16 +107,18 @@ public class UpdateOrderDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UpdateOrderDTO that = (UpdateOrderDTO) o;
-        return isPaymentConfirmed() == that.isPaymentConfirmed() &&
-                isShipped() == that.isShipped() &&
+        return getPaymentConfirmed() == that.getPaymentConfirmed() &&
+                getShipped() == that.getShipped() &&
                 Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getClientId(), that.getClientId()) &&
+                Objects.equals(getListOfServices(), that.getListOfServices()) &&
+                Objects.equals(getListOfTires(), that.getListOfTires()) &&
                 Objects.equals(getNote(), that.getNote()) &&
                 getPaymentType() == that.getPaymentType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getClientId(), getNote(), getPaymentType(), isPaymentConfirmed(), isShipped());
+        return Objects.hash(getId(), getClientId(), getListOfServices(), getListOfTires(), getNote(), getPaymentType(), getPaymentConfirmed(), getShipped());
     }
 }

@@ -3,6 +3,7 @@ package cz.muni.pa165.pneuservis.facadeTest;
 import cz.fi.muni.pa165.pneuservis.dto.CreateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
 import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
+import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
@@ -16,6 +17,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -25,6 +27,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +35,7 @@ import static org.mockito.Mockito.when;
  * Created by vit.holasek on 25.11.2016.
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class OrderFacadeImplTest {
+public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
     @Mock
     private OrderService orderService;
 
@@ -108,25 +111,76 @@ public class OrderFacadeImplTest {
 
         clientOrders = new ArrayList<>();
         clientOrders.add(order1);
+    }
 
-        when(orderService.create(order1)).thenAnswer(invoke -> {
+    @Captor
+    ArgumentCaptor<Order> captor;
+
+    @Test
+    public void createTest() {
+        when(orderService.create(any(Order.class))).thenAnswer(invoke -> {
             Order order = invoke.getArgumentAt(0, Order.class);
             order.setId(1L);
             return order;
         });
-    }
-
-    @Captor ArgumentCaptor<Order> captor;
-    @Test
-    public void createTest() {
         OrderDTO orderDTO = orderFacade.create(newOrderDTO);
         verify(orderService).create(captor.capture());
         Assert.assertEquals(orderDTO.getId(), new Long(1));
         Assert.assertNotNull(captor.getValue());
         Order capturedOrder = captor.getValue();
-        Assert.assertEquals(capturedOrder.getPaymentType(), PaymentType.COD);
         Assert.assertEquals(capturedOrder.getClientId(), newOrderDTO.getClientId());
         Assert.assertNotNull(capturedOrder.getListOfServices());
         Assert.assertEquals(capturedOrder.getListOfServices().size(), newOrderDTO.getListOfServices().size());
+    }
+
+    @Test
+    public void updateTest() {
+        UpdateOrderDTO orderDTO = beanMappingService.mapTo(order1, UpdateOrderDTO.class);
+        orderFacade.update(orderDTO);
+        verify(orderService).update(captor.capture());
+        Assert.assertEquals(orderDTO.getId(), order1.getId());
+        Assert.assertNotNull(captor.getValue());
+        Assert.assertEquals(captor.getValue(), order1);
+    }
+
+    @Test
+    public void deleteTest() {
+        OrderDTO orderDTO = beanMappingService.mapTo(order1, OrderDTO.class);
+        orderFacade.delete(orderDTO);
+        verify(orderService).delete(captor.capture());
+        Assert.assertNotNull(captor.getValue());
+        Assert.assertEquals(captor.getValue().getId(), order1.getId());
+    }
+
+    @Test
+    public void findOrderByIdTest() {
+        when(orderService.findOrderById(1L)).thenReturn(order1);
+        OrderDTO gatheredOrderDTO = orderFacade.findOrderById(1L);
+        verify(orderService).findOrderById(1L);
+        Assert.assertNotNull(gatheredOrderDTO);
+        Assert.assertEquals(beanMappingService.mapTo(order1, OrderDTO.class), gatheredOrderDTO);
+    }
+
+    @Test
+    public void findAllOrdersTest() {
+        when(orderService.findAllOrders()).thenReturn(allOrders);
+        List<OrderDTO> orderDTOs = orderFacade.findAllOrders();
+        verify(orderService).findAllOrders();
+        Assert.assertNotNull(orderDTOs);
+        Assert.assertEquals(allOrders.size(), orderDTOs.size());
+    }
+
+    @Test
+    public void findClientOrdersTest() {
+        when(orderService.findClientOrders(1L)).thenReturn(clientOrders);
+        List<OrderDTO> orderDTOs = orderFacade.findClientOrders(1L);
+        verify(orderService).findClientOrders(1L);
+        Assert.assertNotNull(orderDTOs);
+        Assert.assertEquals(clientOrders.size(), orderDTOs.size());
+    }
+
+    @Test
+    public void getOrderBillingTest() {
+        
     }
 }

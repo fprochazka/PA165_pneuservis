@@ -51,7 +51,7 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
-    public List<OrderDTO> findUserOrders(Long clientId) {
+    public List<OrderDTO> findClientOrders(Long clientId) {
         List<Order> orders = orderService.findClientOrders(clientId);
         return beanMappingService.mapTo(orders, OrderDTO.class);
     }
