@@ -6,6 +6,8 @@
 package cz.fi.muni.pa165.pneuservis.facade;
 
 import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
+import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
+import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import java.util.List;
 
 /**
@@ -23,17 +25,17 @@ public interface TireFacade {
     TireDTO findById(Long id);
 
     List<TireDTO> findAll();
-    
-    List<TireDTO> findByCatalogNumber();
-    
-    List<TireDTO> findByProfile();
-    
-    List<TireDTO> findByDiameter();
-    
-    List<TireDTO> findBySize();
-    
-    List<TireDTO> findByType();
-    
-    List<TireDTO> findByManufacturer();
-    
+
+    List<TireDTO> findByCatalogNumber(int catalogNumber);
+
+    List<TireDTO> findByProfile(int profile);
+
+    List<TireDTO> findByDiameter(int diameter);
+
+    List<TireDTO> findBySize(int size);
+
+    List<TireDTO> findByType(TireType type);
+
+    List<TireDTO> findByManufacturer(TireManufacturer manufacturer);
+
 }

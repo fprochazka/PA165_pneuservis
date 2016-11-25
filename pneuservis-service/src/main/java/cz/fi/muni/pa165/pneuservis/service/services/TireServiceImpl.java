@@ -77,7 +77,7 @@ public class TireServiceImpl implements TireService {
         try {
             return tireDAO.findByCatalogNumber(catalogNumber);
         } catch (IllegalArgumentException | PersistenceException ex) {
-            throw new PneuservisPortalDataAccessException("cannot find tire by CN", ex);
+            throw new PneuservisPortalDataAccessException("cannot find tires by CN", ex);
         }
     }
 
@@ -86,7 +86,7 @@ public class TireServiceImpl implements TireService {
         try {
             return tireDAO.findByProfile(profile);
         } catch (IllegalArgumentException | PersistenceException ex) {
-            throw new PneuservisPortalDataAccessException("cannot find tire by profile", ex);
+            throw new PneuservisPortalDataAccessException("cannot find tires by profile", ex);
         }
     }
 
@@ -104,7 +104,7 @@ public class TireServiceImpl implements TireService {
         try {
             return tireDAO.findBySize(size);
         } catch (IllegalArgumentException | PersistenceException ex) {
-            throw new PneuservisPortalDataAccessException("cannot find tire by size", ex);
+            throw new PneuservisPortalDataAccessException("cannot find tires by size", ex);
         }
     }
 
@@ -113,7 +113,7 @@ public class TireServiceImpl implements TireService {
         try {
             return tireDAO.findByType(type);
         } catch (IllegalArgumentException | PersistenceException ex) {
-            throw new PneuservisPortalDataAccessException("cannot find tire by type", ex);
+            throw new PneuservisPortalDataAccessException("cannot find tires by type", ex);
         }
     }
 
@@ -122,7 +122,7 @@ public class TireServiceImpl implements TireService {
         try {
             return tireDAO.findByManufacturer(manufacturer);
         } catch (IllegalArgumentException | PersistenceException ex) {
-            throw new PneuservisPortalDataAccessException("cannot find tire by manufacturer", ex);
+            throw new PneuservisPortalDataAccessException("cannot find tires by manufacturer", ex);
         }
     }
 }

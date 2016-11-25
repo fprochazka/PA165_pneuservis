@@ -5,10 +5,10 @@
  */
 package cz.fi.muni.pa165.pneuservis.service.facade;
 
-import cz.fi.muni.pa165.pneuservis.dao.TireDAO;
 import cz.fi.muni.pa165.pneuservis.dto.TireDTO;
-import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.entity.Tire;
+import cz.fi.muni.pa165.pneuservis.enums.TireManufacturer;
+import cz.fi.muni.pa165.pneuservis.enums.TireType;
 import cz.fi.muni.pa165.pneuservis.facade.TireFacade;
 import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
 import cz.fi.muni.pa165.pneuservis.service.services.TireService;
@@ -23,67 +23,73 @@ import org.springframework.transaction.annotation.Transactional;
 @org.springframework.stereotype.Service
 @Transactional
 public class TireFacadeImpl implements TireFacade {
-
+    
     @Autowired
     private TireService tireService;
-
+    
     @Autowired
     private BeanMappingService beanMappingService;
-
+    
     @Override
     public void create(TireDTO tire) throws IllegalArgumentException {
         Tire tireEntity = beanMappingService.mapTo(tire, Tire.class);
-//        tireService.create(serviceEntity);
+        tireService.create(tireEntity);
     }
-
+    
     @Override
     public void update(TireDTO tire) {
-//        tireService.update(beanMappingService.mapTo(tire, Tire.class));
+        tireService.update(beanMappingService.mapTo(tire, Tire.class));
     }
-
+    
     @Override
     public void delete(TireDTO tire) {
-//        tireService.delete(beanMappingService.mapTo(tire, Tire.class));
+        tireService.delete(beanMappingService.mapTo(tire, Tire.class));
     }
-
+    
     @Override
     public TireDTO findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beanMappingService.mapTo(tireService.findById(id), TireDTO.class);
     }
-
+    
     @Override
     public List<TireDTO> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beanMappingService.mapTo(tireService.findAll(), TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findByCatalogNumber() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findByCatalogNumber(int catalogNumber) {
+        List<Tire> tires = tireService.findByCatalogNumber(catalogNumber);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findByProfile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findByProfile(int profile) {
+        List<Tire> tires = tireService.findByProfile(profile);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findByDiameter() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findByDiameter(int diameter) {
+        List<Tire> tires = tireService.findByDiameter(diameter);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findBySize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findBySize(int size) {
+        List<Tire> tires = tireService.findBySize(size);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findByType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findByType(TireType type) {
+        List<Tire> tires = tireService.findByType(type);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
     @Override
-    public List<TireDTO> findByManufacturer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TireDTO> findByManufacturer(TireManufacturer manufacturer) {
+        List<Tire> tires = tireService.findByManufacturer(manufacturer);
+        return (tires == null) ? null : beanMappingService.mapTo(tires, TireDTO.class);
     }
-
+    
 }
