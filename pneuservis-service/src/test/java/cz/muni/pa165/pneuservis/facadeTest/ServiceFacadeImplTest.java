@@ -148,7 +148,6 @@ public class ServiceFacadeImplTest extends AbstractTestNGSpringContextTests {
     @Test void findNonExistingNameTest(){
         when(serviceService.findByName("neexistujem")).thenReturn(null);
         List<ServiceDTO> services = serviceFacade.findByName("neexistujem");
-        verify(serviceService).findByName(any(String.class));
         assertNull(services);
     }
 
