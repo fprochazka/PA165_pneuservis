@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.pneuservis.service.services;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.service.exception.PneuservisPortalDataAccessException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,4 +23,6 @@ public interface OrderService {
     List<Order> findAllOrders();
 
     OrderBilling getOrderBilling(Long orderId);
+
+    BigDecimal calculateProfit();
 }

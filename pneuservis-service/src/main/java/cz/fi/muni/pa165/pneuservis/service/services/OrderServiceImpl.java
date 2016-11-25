@@ -119,4 +119,20 @@ public class OrderServiceImpl implements OrderService {
             throw new PneuservisPortalDataAccessException("Cannot create order billing.", e);
         }
     }
+    @Override
+    public BigDecimal calculateProfit() throws PneuservisPortalDataAccessException{
+        try {
+            List<Order> all = orderDao.findAll();
+            BigDecimal sum = BigDecimal.ZERO;
+            for (Order order : all) {
+                if (order.isPaymentConfirmed()) {
+                    System.out.println(sum);
+                    sum = sum.add(getOrderBilling(order.getId()).getPrice());
+                }
+            }
+            return sum;
+        } catch (Throwable e) {
+            throw new PneuservisPortalDataAccessException("cannot compute profit", e);
+        }
+    }
 }

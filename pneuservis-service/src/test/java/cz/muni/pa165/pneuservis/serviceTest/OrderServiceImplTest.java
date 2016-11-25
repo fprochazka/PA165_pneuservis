@@ -1,5 +1,6 @@
 package cz.muni.pa165.pneuservis.serviceTest;
 
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
 import cz.fi.muni.pa165.pneuservis.dao.OrderDAO;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
@@ -23,6 +24,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
@@ -41,6 +43,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
 
     private Order order1;
     private Order order2;
+    private Order order3;
     private Order invalidOrder;
     private Service service1;
     private Tire tire1;
@@ -108,6 +111,15 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
         order2.setNote("Test1");
         order2.getListOfServices().add(service1);
 
+        order3 = new Order();
+        order3.setId(8L);
+        order3.setPaymentConfirmed(true);
+        order3.setShipped(true);
+        order3.setPaymentType(PaymentType.CARD);
+        order3.setClientId(2L);
+        order3.setNote("Test1");
+        order3.getListOfTires().add(tire2);
+
         invalidOrder = new Order();
 
         allOrders = new ArrayList<>();
@@ -119,6 +131,7 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
 
         when(orderDAO.findById(1L)).thenReturn(order1);
         when(orderDAO.findById(2L)).thenReturn(order2);
+        when(orderDAO.findById(8L)).thenReturn(order3);
         when(orderDAO.findById(3L)).thenReturn(null);
         when(orderDAO.findAll()).thenReturn(allOrders);
         when(orderDAO.findByClientId(1L)).thenReturn(clientOrders);
@@ -184,6 +197,14 @@ public class OrderServiceImplTest extends AbstractTestNGSpringContextTests {
     @Test
     public void getOrderBillingTestInvalidId() {
         Assert.assertEquals(orderService.getOrderBilling(3L), null);
+    }
+
+    @Test
+    public void calculateProfitTest(){
+        when(orderDAO.findAll()).thenReturn(Arrays.asList(order1, order2, order3));
+        BigDecimal result = orderService.calculateProfit();
+        Assert.assertEquals(result, new BigDecimal(4029));
+        reset(orderDAO);
     }
 
     @Test
