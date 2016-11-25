@@ -1,18 +1,13 @@
 package cz.muni.pa165.pneuservis.facadeTest;
 
-import cz.fi.muni.pa165.pneuservis.dto.CreateOrderDTO;
-import cz.fi.muni.pa165.pneuservis.dto.OrderDTO;
-import cz.fi.muni.pa165.pneuservis.dto.ServiceDTO;
-import cz.fi.muni.pa165.pneuservis.dto.UpdateOrderDTO;
+import cz.fi.muni.pa165.pneuservis.dto.*;
 import cz.fi.muni.pa165.pneuservis.entity.Order;
 import cz.fi.muni.pa165.pneuservis.entity.Service;
 import cz.fi.muni.pa165.pneuservis.enums.PaymentType;
 import cz.fi.muni.pa165.pneuservis.facade.OrderFacade;
 import cz.fi.muni.pa165.pneuservis.service.configuration.ServiceConfiguration;
 import cz.fi.muni.pa165.pneuservis.service.facade.OrderFacadeImpl;
-import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingService;
-import cz.fi.muni.pa165.pneuservis.service.services.BeanMappingServiceImpl;
-import cz.fi.muni.pa165.pneuservis.service.services.OrderService;
+import cz.fi.muni.pa165.pneuservis.service.services.*;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +176,19 @@ public class OrderFacadeImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getOrderBillingTest() {
-        
+        OrderBilling orderBilling = new OrderBilling();
+        orderBilling.setOrder(order1);
+        orderBilling.setPrice(new BigDecimal(100));
+        orderBilling.setPriceWithVAT(new BigDecimal(126));
+        List<BillingItem> items = new ArrayList<>();
+        items.add(new BillingItem("Test", 21,  new BigDecimal(100), new BigDecimal(126)));
+        orderBilling.setBillingItems(items);
+        when(orderService.getOrderBilling(1L)).thenReturn(orderBilling);
+        OrderBillingDTO orderBillingDTO = orderFacade.getOrderBilling(1L);
+        verify(orderService).getOrderBilling(1L);
+        Assert.assertNotNull(orderBillingDTO);
+        OrderBillingDTO orderBillingDTO1 = beanMappingService.mapTo(orderBilling, OrderBillingDTO.class);
+        orderBillingDTO1.setOrderId(1L);
+        Assert.assertEquals(orderBillingDTO1, orderBillingDTO);
     }
 }
