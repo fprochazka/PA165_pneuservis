@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej Å Ã­pka
  */
 public interface TireFacade {
 

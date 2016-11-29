@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Matej Šípka
+ * @author Matej Å Ã­pka
  */
 @org.springframework.stereotype.Service
 @Transactional

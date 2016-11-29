@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Matej ��pka
+ * @author Matej Šípka
  */
 public class TireDTO {
 
